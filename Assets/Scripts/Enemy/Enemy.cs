@@ -13,6 +13,6 @@ public class Enemy : MonoBehaviour
         _aI = new BasicEnemyAI(this);
     }
     private void OnCollisionEnter2D(Collision2D collision) {
-        _aI.SetPlayer(collision.gameObject.GetComponent<Player>());
+        _aI.SetPlayerAndTrack(collision.gameObject.GetComponent<Player>());
     }
 }
