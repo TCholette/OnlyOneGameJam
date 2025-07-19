@@ -11,16 +11,28 @@ public class Player : MonoBehaviour {
     private float _lifeBarBaseScale;
     private int _bleeding = 0;
     private bool _isBleeding = false;
-    private int _charges = 0;
+    private int _charges = 1;
+    [SerializeField] private GameObject _weaponHitbox;
     private PlayerMovement _movement;
     public int Charges { get { return _charges; } set { _charges = value; } }
-    
+    public GameObject WeaponHitbox { get { return _weaponHitbox; } }
+    public PlayerMovement Movement { get { return _movement; } }
+
+    private Dash attack;
+
 
 
     void Start() {
         _life = MAX_LIFE;
         _lifeBarBaseScale = lifeBar.transform.localScale.x;
         _movement = gameObject.GetComponent<PlayerMovement>();
+        attack = new Dash(this, 20f, 0.1f, 3f);
+    }
+
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.Mouse0)) {
+            attack.Activate(_weaponHitbox);
+        }
     }
 
     public void AddBleeding() {
@@ -60,7 +72,6 @@ public class Player : MonoBehaviour {
         lifeBar.transform.localScale = new Vector3(_lifeBarBaseScale, lifeBar.transform.localScale.y);
         _life = MAX_LIFE;
         _movement.Respawn();
-        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
     }
     public void TestBleed(int amount) {
         for (int i = 0; i < amount; i++) {

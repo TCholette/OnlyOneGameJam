@@ -7,12 +7,12 @@ public abstract class AbsAttack {
         _player = player;
     }
 
-    public void Activate() {
+    public void Activate(GameObject hitbox) {
         if (_player.Charges > 0) {
-            Execute();
+            Execute(hitbox);
         }
     }
 
-    protected virtual void Execute() {
+    protected virtual void Execute(GameObject hitbox) {
     }
 }
