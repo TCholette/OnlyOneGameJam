@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -12,6 +13,14 @@ public class Enemy : MonoBehaviour
         _enemyBody = GetComponent<Rigidbody2D>();
         _aI = new BasicEnemyAI(this);
         _collider = GetComponent<CircleCollider2D>();
+    }
+    public void Kill() {
+        this.StartCoroutine(Die());
+    }
+    private IEnumerator Die() {
+        //add logic that happens before death
+        this.gameObject.SetActive(false);
+        yield return null;
     }
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.CompareTag("Player")) {
