@@ -10,6 +10,9 @@ public abstract class AbsAttack {
     public void Activate(GameObject hitbox) {
         if (_player.Charges > 0) {
             Execute(hitbox);
+            _player.AddBleeding(1);
+        } else {
+            _player.AddBleeding(30);
         }
     }
 

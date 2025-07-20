@@ -5,14 +5,36 @@ public abstract class AbsEnemyAI
 {
     protected Player _player;
     protected Enemy _ctx;
-    protected abstract IEnumerator ExecuteAISM();
+    protected abstract IEnumerator FocusPlayer();
+    protected abstract IEnumerator Wander();
     protected abstract void FollowTarget();
     protected abstract void AttackTarget();
+
+    private bool _foundPlayer = false;
     public void Init() {
-        _ctx.StartCoroutine(ExecuteAISM());
+        if (_ctx) {
+            _player = StaticManager.player;
+            _ctx.StartCoroutine(SearchPlayer());
+        }
     }
-    public void SetPlayerAndTrack(Player player) {
-        _player = player;
-        Init();
+
+    public IEnumerator SearchPlayer() {
+        Coroutine coroutine = _ctx.StartCoroutine(Wander());
+        while (_ctx) {
+            Debug.Log("MUshooms");
+            Debug.Log(_player);
+            if (!_foundPlayer && Vector3.Distance(_ctx.transform.position, _player.gameObject.transform.position) <= _ctx.followRange) {
+                _foundPlayer = true;
+                _ctx.StopCoroutine(coroutine);
+                coroutine = _ctx.StartCoroutine(FocusPlayer());
+            }
+
+            if (_foundPlayer && Vector3.Distance(_ctx.transform.position, _player.gameObject.transform.position) > _ctx.followRange) {
+                _foundPlayer = false;
+                _ctx.StopCoroutine(coroutine);
+                coroutine = _ctx.StartCoroutine(Wander());
+            }
+            yield return new WaitForFixedUpdate();
+        }
     }
 }

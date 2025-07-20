@@ -7,16 +7,18 @@ public class Dash : AbsAttack {
     private float _time;
     private bool _isDashing = false;
     private float _cooldown;
-    public Dash(Player player, float speed, float time, float cooldown) : base(player) {
+    private float _hitWindow;
+    public Dash(Player player, float speed, float time, float cooldown, float hitWindow) : base(player) {
         _speed = speed;
         _time = time;
         _cooldown = cooldown;
+        _hitWindow = hitWindow;
     }
 
     protected override void Execute(GameObject hitbox) {
-        if (!_isDashing) {
+        if (!_isDashing && _player.Movement.IsGrounded) {
             _isDashing = true;
-            _player.WeaponHitbox.GetComponent<Animator>().SetTrigger("Dash");
+            _player.WeaponHitbox.SetActive(true);
             Vector2 direction = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - _player.transform.position);
             direction = direction.normalized;
             hitbox.transform.position = new Vector3(_player.transform.position.x + direction.x, _player.transform.position.y + direction.y, 0);
@@ -33,10 +35,13 @@ public class Dash : AbsAttack {
         yield return new WaitForSeconds(_time);
         _player.GetComponent<Rigidbody2D>().gravityScale = baseGravScale;
         _player.Movement.CanMove = true;
+        yield return new WaitForSeconds(_hitWindow);
+        _player.WeaponHitbox.SetActive(false);
     }
 
     private IEnumerator Cooldown() {
-        yield return new WaitForSeconds(_cooldown);
+        yield return new WaitForSeconds(_cooldown/2);
+        yield return new WaitForSeconds(_cooldown / 2);
         _isDashing = false;
     }
 }

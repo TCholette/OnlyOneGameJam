@@ -7,14 +7,15 @@ TagManager:
   - Ground
   - Checkpoint
   - TempCheckpoint
+  - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
-  - 
+  - Flying enemy
   - 
   - 
   - 

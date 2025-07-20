@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private GameObject _checkpoint = null;
     private GameObject _tempCheckpoint = null;
 
+    public bool IsGrounded { get { return _isGrounded; } }
     public bool CanMove { set { _canMove = value; } }
 
     private void OnCollisionEnter2D(Collision2D collision) {
