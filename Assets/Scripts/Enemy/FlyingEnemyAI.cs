@@ -2,31 +2,28 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class BasicEnemyAI : AbsEnemyAI
-{
+public class FlyingEnemyAI : AbsEnemyAI {
 
-    private const int ATTACK_RANGE = 2;
+    private const int ATTACK_RANGE = 5;
     private const float ATK_COOLDOWN = 1f;
 
     private bool _canAttack = true;
-    public BasicEnemyAI(Enemy enemy) {
+    public FlyingEnemyAI(Enemy enemy) {
         _ctx = enemy;
     }
     protected override void AttackTarget() {
-        _player.AddBleeding();
-        _player.LoseLife(100);
         Debug.Log("YOU ARE IN ATTACK RANGE");
     }
     protected override IEnumerator ExecuteAISM() {
         while (_player) {
-           // if (Vector3.Distance(_player.transform.position, _ctx.transform.position) > ATTACK_RANGE) {
-                FollowTarget();
-                yield return new WaitForSeconds(0.2f);
+            // if (Vector3.Distance(_player.transform.position, _ctx.transform.position) > ATTACK_RANGE) {
+            FollowTarget();
+            yield return new WaitForSeconds(0.2f);
             //}
-            if (_player && _canAttack && Vector3.Distance(_player.transform.position, _ctx.transform.position) <= ATTACK_RANGE) {
+            if (_canAttack && Vector3.Distance(_player.transform.position, _ctx.transform.position) <= ATTACK_RANGE) {
                 _ctx.StartCoroutine(AttackCooldown());
                 AttackTarget();
-            } 
+            }
             yield return null;
         }
     }
@@ -37,6 +34,6 @@ public class BasicEnemyAI : AbsEnemyAI
         _canAttack = true;
     }
     protected override void FollowTarget() {
-        _ctx.Body.linearVelocityX = ((_player.gameObject.transform.position - _ctx.transform.position).normalized * _ctx.Speed).x;
+        _ctx.Body.linearVelocity = (_player.gameObject.transform.position - _ctx.transform.position).normalized * _ctx.Speed;
     }
 }

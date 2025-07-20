@@ -11,8 +11,22 @@ public class Enemy : MonoBehaviour
     private void Start() {
         _enemyBody = GetComponent<Rigidbody2D>();
         _aI = new BasicEnemyAI(this);
+        _collider = GetComponent<CircleCollider2D>();
+    }
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.gameObject.CompareTag("Player")) {
+            _aI.SetPlayerAndTrack(collision.gameObject.GetComponent<Player>());
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision) {
+        if (collision.gameObject.CompareTag("Player")) {
+            _aI.SetPlayerAndTrack(null);
+        }
     }
     private void OnCollisionEnter2D(Collision2D collision) {
-        _aI.SetPlayerAndTrack(collision.gameObject.GetComponent<Player>());
+        if (collision.gameObject.CompareTag("Player")) {
+            Debug.Log("You are hit");
+        }
     }
 }

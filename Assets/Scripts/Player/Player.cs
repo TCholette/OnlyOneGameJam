@@ -18,15 +18,22 @@ public class Player : MonoBehaviour {
     public GameObject WeaponHitbox { get { return _weaponHitbox; } }
     public PlayerMovement Movement { get { return _movement; } }
 
-    private Dash attack;
+    private AbsAttack attack;
 
+    private bool test = false;
 
-
+    public void SwitchTest() {
+        if (test) {
+            attack = new Slash(this);
+        } else {
+            attack = new Dash(this, 20f, 0.1f, 3f);
+        }
+    }
     void Start() {
         _life = MAX_LIFE;
         _lifeBarBaseScale = lifeBar.transform.localScale.x;
         _movement = gameObject.GetComponent<PlayerMovement>();
-        attack = new Dash(this, 20f, 0.1f, 3f);
+        attack = new Slash(this);
     }
 
     private void Update() {
@@ -53,7 +60,7 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private void LoseLife(int amount) {
+    public void LoseLife(int amount) {
         _life -= amount;
         lifeBar.transform.localScale = new Vector3(_life / MAX_LIFE * _lifeBarBaseScale, lifeBar.transform.localScale.y);
     }
