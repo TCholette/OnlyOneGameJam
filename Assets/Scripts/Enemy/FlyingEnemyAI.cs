@@ -4,26 +4,29 @@ using UnityEngine;
 
 public class FlyingEnemyAI : AbsEnemyAI {
 
-    private const int ATTACK_RANGE = 6;
-    private const float ATK_COOLDOWN = 1f;
-
     private bool _canAttack = true;
+    private float _shootSpeed = 10f;
     public FlyingEnemyAI(Enemy enemy) {
         _ctx = enemy;
+        _speed = 1.5f;
+        _followRange = 12f;
+        _attackRange = 6f;
     }
     protected override void AttackTarget() {
-        _ctx.Shoot(_player);
-        Debug.Log("YOU ARE IN ATTACK RANGE");
+        _ctx.Shoot(_player, _shootSpeed);
+    }
+    public override void Hit() {
+        _ctx.StartCoroutine(_ctx.Die());
     }
     protected override IEnumerator FocusPlayer() {
         while (true) {
-            if (Vector3.Distance(_player.transform.position, _ctx.transform.position) > ATTACK_RANGE) {
+            if (Vector3.Distance(_player.transform.position, _ctx.transform.position) > _attackRange) {
                 FollowTarget();
                 yield return new WaitForSeconds(0.2f);
             } else {
                 LookAtTarget();
             }
-            if (_player && _canAttack && Vector3.Distance(_player.transform.position, _ctx.transform.position) <= ATTACK_RANGE) {
+            if (_player && _canAttack && Vector3.Distance(_player.transform.position, _ctx.transform.position) <= _attackRange) {
                 _ctx.StartCoroutine(AttackCooldown());
                 AttackTarget();
             }
@@ -36,7 +39,7 @@ public class FlyingEnemyAI : AbsEnemyAI {
 
             float x = Random.Range(-100, 100) / 10f;
             float y = Random.Range(-100, 100) / 10f;
-            _ctx.Body.linearVelocity = new Vector2(x, y).normalized * _ctx.Speed/2f;
+            _ctx.Body.linearVelocity = new Vector2(x, y).normalized * _speed/2f;
 
             if (x < 1) {
                 _ctx.GetComponent<SpriteRenderer>().flipX = true;
@@ -51,11 +54,11 @@ public class FlyingEnemyAI : AbsEnemyAI {
 
     private IEnumerator AttackCooldown() {
         _canAttack = false;
-        yield return new WaitForSeconds(ATK_COOLDOWN);
+        yield return new WaitForSeconds(_attackCooldown);
         _canAttack = true;
     }
     protected void LookAtTarget() {
-        Vector3 direction = (_player.gameObject.transform.position - _ctx.transform.position).normalized * _ctx.Speed;
+        Vector3 direction = (_player.gameObject.transform.position - _ctx.transform.position).normalized * _speed;
         if (direction.x < 1) {
             _ctx.GetComponent<SpriteRenderer>().flipX = true;
         } else {
@@ -64,7 +67,7 @@ public class FlyingEnemyAI : AbsEnemyAI {
         _ctx.Body.linearVelocity = Vector3.zero;
     }
     protected override void FollowTarget() {
-        Vector3 direction = (_player.gameObject.transform.position - _ctx.transform.position).normalized * _ctx.Speed;
+        Vector3 direction = (_player.gameObject.transform.position - _ctx.transform.position).normalized * _speed;
         if (direction.x < 1) {
             _ctx.GetComponent<SpriteRenderer>().flipX = true;
         } else {

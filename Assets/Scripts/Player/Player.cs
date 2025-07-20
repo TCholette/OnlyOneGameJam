@@ -18,6 +18,7 @@ public class Player : MonoBehaviour {
     private bool _isDead = false;
     private int _charges;
     private PlayerMovement _movement;
+    public bool IsDead { get { return _isDead; } }
     public int Charges { get { return _charges; } set { _charges = value; } }
     public GameObject WeaponHitbox { get { return _weaponHitbox; } }
     public PlayerMovement Movement { get { return _movement; } }

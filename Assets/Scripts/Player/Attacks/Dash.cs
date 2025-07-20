@@ -8,15 +8,18 @@ public class Dash : AbsAttack {
     private bool _isDashing = false;
     private float _cooldown;
     private float _hitWindow;
+
+    private const int _bleedAmount = 2;
     public Dash(Player player, float speed, float time, float cooldown, float hitWindow) : base(player) {
         _speed = speed;
         _time = time;
         _cooldown = cooldown;
         _hitWindow = hitWindow;
+        _bleed = _bleedAmount;
     }
 
     protected override void Execute(GameObject hitbox) {
-        if (!_isDashing && _player.Movement.IsGrounded) {
+        if (!_isDashing) {
             _isDashing = true;
             _player.WeaponHitbox.SetActive(true);
             Vector2 direction = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - _player.transform.position);

@@ -10,18 +10,13 @@ public enum EnemyType {
 }
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float _speed = 5f;
-    public float Speed { get { return _speed; } } 
     private Rigidbody2D _body;
     public Rigidbody2D Body { get { return _body;}}
     private AbsEnemyAI _aI;
-    [SerializeField] private EnemyType type;
-    public float followRange;
-
-    [SerializeField] private float shootSpeed; //degager de la
+    public EnemyType type;
 
     private bool _isDead = false;
-    private void Start() {
+    public void Start() {
         _body = GetComponent<Rigidbody2D>();
         if (type == EnemyType.devil) {
             _aI = new BasicEnemyAI(this);
@@ -29,17 +24,20 @@ public class Enemy : MonoBehaviour
         if (type == EnemyType.imp) {
             _aI = new FlyingEnemyAI(this);
         }
+        if (type == EnemyType.beast) {
+            _aI = new GuardingEnemyAI(this);
+        }
         _aI.Init();
     }
 
     private void Update() {
     }
-    public void Kill() {
+    public void Hit() {
         if (this) {
-            StartCoroutine(Die());
+            _aI.Hit();
         }
     }
-    private IEnumerator Die() {
+    public IEnumerator Die() {
         if (!_isDead) {
             //FLESH
             int amount = Random.Range(5, 10);
@@ -58,7 +56,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void Shoot(Player target) {
+    public void Shoot(Player target, float shootSpeed) {
         GameObject projectile = Instantiate(StaticManager.projectile);
         projectile.transform.position = transform.position;
         projectile.GetComponent<Rigidbody2D>().linearVelocity = (target.transform.position-transform.position).normalized * shootSpeed;

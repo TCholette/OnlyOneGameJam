@@ -17,10 +17,12 @@ public class PlayerMovement : MonoBehaviour
     public bool IsGrounded { get { return _isGrounded; } }
     public bool CanMove { set { _canMove = value; } }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
+
+
+    private void OnTriggerExit2D(Collider2D collision) {
         if (collision.gameObject.CompareTag("Ground")) {
-            _isGrounded = true;
-        } 
+            _isGrounded = false;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision) {
@@ -29,6 +31,9 @@ public class PlayerMovement : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("TempCheckpoint")) {
             _tempCheckpoint = collision.gameObject;
+        }
+        if (collision.gameObject.CompareTag("Ground")) {
+            _isGrounded = true;
         }
     }
 
@@ -65,12 +70,12 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.A)) {
                 _body.linearVelocityX = Mathf.Lerp(_body.linearVelocityX, 0, newFriction);
             } else if (Input.GetKey(KeyCode.D)) {
-                gameObject.GetComponent<SpriteRenderer>().flipX = true;
+                gameObject.GetComponent<SpriteRenderer>().flipX = false;
                 if (_body.linearVelocityX < MOVE_FORCE) {
                     _body.linearVelocityX = MOVE_FORCE;
                 }
             } else if (Input.GetKey(KeyCode.A)) {
-                gameObject.GetComponent<SpriteRenderer>().flipX = false;
+                gameObject.GetComponent<SpriteRenderer>().flipX = true;
                 if (_body.linearVelocityX > -MOVE_FORCE) {
                     _body.linearVelocityX = -MOVE_FORCE;
                 }
