@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -7,7 +8,11 @@ public class SaveManager: MonoBehaviour
     private SaveManager instance;
     public static SaveManager Instance { get; private set; }
 
-    public SaveStruct saves = new();
+    public SaveStruct save = new();
+
+    SaveManager() {
+        save.weapons = new List<Weapon>();
+    }
 
     private void Awake()
     {

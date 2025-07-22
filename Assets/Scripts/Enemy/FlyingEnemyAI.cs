@@ -15,8 +15,8 @@ public class FlyingEnemyAI : AbsEnemyAI {
     protected override void AttackTarget() {
         _ctx.Shoot(_player, _shootSpeed);
     }
-    public override void Hit() {
-        _ctx.StartCoroutine(_ctx.Die());
+    public override bool Hit() {
+        return true;
     }
     protected override IEnumerator FocusPlayer() {
         while (true) {

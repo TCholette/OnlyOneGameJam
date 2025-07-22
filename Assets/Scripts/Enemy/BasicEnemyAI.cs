@@ -20,8 +20,8 @@ public class BasicEnemyAI : AbsEnemyAI
         _ctx.Body.linearVelocityX = direction * 3;
     }
 
-    public override void Hit() {
-        _ctx.StartCoroutine(_ctx.Die());
+    public override bool Hit() {
+        return true;
     }
     protected override IEnumerator FocusPlayer() {
         while (true) {

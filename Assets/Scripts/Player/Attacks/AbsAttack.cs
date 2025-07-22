@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-public enum Weapon { Sword, Spear, Shield, Axe }
+public enum Weapon { None, Sword, Spear, Shield, Axe }
 
 public abstract class AbsAttack {
 

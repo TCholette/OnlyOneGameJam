@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
@@ -31,9 +32,20 @@ public class Player : MonoBehaviour {
     private bool test = false;
 
 
-    public void removeCharge() {
+    public void HitEnemy(Enemy enemy) {
+        Weapon compareWeapon = enemy.Hit();
+        if (compareWeapon != Weapon.None) { 
+            if (!SaveManager.Instance.save.weapons.Contains(compareWeapon)) {
+                // send to pantheon, spawn enemies
+                SaveManager.Instance.save.weapons.Add(compareWeapon);
+            }
+            StartCoroutine(enemy.Die());
+        }
         _charges--;
         UpdateChargeUI();
+        foreach (Weapon wep in SaveManager.Instance.save.weapons) {
+            Debug.Log(wep);
+        }
     }
 
     public void SwitchTest() {

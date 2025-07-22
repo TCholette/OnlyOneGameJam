@@ -29,11 +29,12 @@ public class GuardingEnemyAI : AbsEnemyAI {
         _player.LoseLife(100);
         _ctx.Body.linearVelocityY = 10f;
     }
-    public override void Hit() {
+    public override bool Hit() {
         if (!_canParry) {
-            _ctx.StartCoroutine(_ctx.Die());
+            return true;
         } else {
             Parry();
+            return false;
         }
     }
     protected override IEnumerator FocusPlayer() {

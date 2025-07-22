@@ -23,7 +23,7 @@ public abstract class AbsEnemyAI
         }
     }
 
-    public abstract void Hit();
+    public abstract bool Hit();
 
     public IEnumerator SearchPlayer() {
         Coroutine coroutine = _ctx.StartCoroutine(Wander());
