@@ -22,8 +22,7 @@ public class Dash : AbsAttack {
         if (!_isDashing) {
             _isDashing = true;
             _player.WeaponHitbox.SetActive(true);
-            Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            Vector2 direction = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - _player.transform.position);
+            Vector2 direction = (Camera.main.ScreenPointToRay(Input.mousePosition).GetPoint(0) - _player.transform.position);
             direction = direction.normalized;
             hitbox.transform.position = new Vector3(_player.transform.position.x + direction.x, _player.transform.position.y + direction.y, 0);
             _player.StartCoroutine(Dashing(direction));

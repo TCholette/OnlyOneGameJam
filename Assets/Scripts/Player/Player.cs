@@ -75,7 +75,7 @@ public class Player : MonoBehaviour {
     private IEnumerator CreateDroplets() {
         int bleed = _bleeding;
         GameObject droplet = Instantiate(dropletTemplate, tearContainer);
-        float rand = Random.Range(lifeBar.transform.position.x - 300, lifeBar.transform.position.x + 300);
+        float rand = Random.Range(lifeBar.transform.position.x - lifeBar.transform.localScale.x * 100f / 2f, lifeBar.transform.position.x + lifeBar.transform.localScale.x*100f/2f);;
         droplet.transform.position = new Vector2(rand ,lifeBar.transform.position.y);
         yield return new WaitForSeconds(BLEED_TICK_TIME / (bleed*1f));
 
