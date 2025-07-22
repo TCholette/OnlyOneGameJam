@@ -15,6 +15,8 @@ public class Enemy : MonoBehaviour
     private AbsEnemyAI _aI;
     public EnemyType type;
     private Weapon _weaponType;
+
+    [SerializeField] public GameObject hitbox;
     public Weapon Weapon {  get { return _weaponType; } }
 
     private bool _isDead = false;

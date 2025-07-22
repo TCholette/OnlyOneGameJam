@@ -20,4 +20,23 @@ public class EnemyHitbox : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void OnTriggerStay2D(Collider2D collision) {
+        if (collision.gameObject.CompareTag("Player")) {
+            Vector2 direction = ((collision.gameObject.transform.position - transform.parent.gameObject.transform.position).normalized * -transform.parent.GetComponent<Rigidbody2D>().linearVelocity.magnitude);
+            if (direction.x < 0) {
+                transform.parent.GetComponent<SpriteRenderer>().flipX = true;
+            } else {
+                transform.parent.GetComponent<SpriteRenderer>().flipX = false;
+            }
+            transform.parent.GetComponent<Rigidbody2D>().linearVelocity = direction;
+
+            /*direction = ((collision.gameObject.transform.position - transform.parent.gameObject.transform.position).normalized * transform.parent.GetComponent<Rigidbody2D>().linearVelocity.magnitude);
+            if (direction.x < 0) {
+                collision.gameObject.GetComponent<SpriteRenderer>().flipX = true;
+            } else {
+                collision.gameObject.GetComponent<SpriteRenderer>().flipX = false;
+            }
+            collision.gameObject.GetComponent<Rigidbody2D>().linearVelocity = direction;*/
+        }
+    }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GuardingEnemyAI : AbsEnemyAI {
 
-    private const float PARRY_COOLDOWN = 1f;
+    private const float PARRY_COOLDOWN = 0.1f;
 
     private bool _canAttack = true;
     private bool _canParry = true;
@@ -16,17 +16,24 @@ public class GuardingEnemyAI : AbsEnemyAI {
 
     }
     protected override void AttackTarget() {
+        _ctx.StartCoroutine(ToggleHitbox());
         float direction = ((_player.gameObject.transform.position - _ctx.transform.position).normalized * _speed).x;
-        if (direction < 1) {
+        if (direction < 0) {
             _ctx.GetComponent<SpriteRenderer>().flipX = true;
         } else {
             _ctx.GetComponent<SpriteRenderer>().flipX = false;
         }
         _ctx.Body.linearVelocityX = direction * 10;
     }
+
     protected void Parry() {
-        _player.Hit(100, 10, _ctx.gameObject);
-        _ctx.Body.linearVelocityY = 10f;
+        float direction = ((_player.gameObject.transform.position - _ctx.transform.position).normalized * _speed).x;
+        if (direction < 0) {
+            _ctx.GetComponent<SpriteRenderer>().flipX = true;
+        } else {
+            _ctx.GetComponent<SpriteRenderer>().flipX = false;
+        }
+        _ctx.Body.linearVelocityX = direction * 10;
     }
     public override bool Hit() {
         if (!_canParry) {
@@ -42,7 +49,8 @@ public class GuardingEnemyAI : AbsEnemyAI {
                 FollowTarget();
                 yield return new WaitForSeconds(0.2f);
             }
-            if (_player && _canAttack && _canParry && Vector3.Distance(_player.transform.position, _ctx.transform.position) <= _attackRange) {
+            int i = Random.Range(0, 100);
+            if (i == 0 && _player && _canAttack && _canParry && Vector3.Distance(_player.transform.position, _ctx.transform.position) <= _attackRange) {
                 _ctx.StartCoroutine(AttackCooldown());
                 AttackTarget();
             }
@@ -66,20 +74,20 @@ public class GuardingEnemyAI : AbsEnemyAI {
 
     private IEnumerator AttackCooldown() {
         _canAttack = false;
+        _canParry = false;
+        _ctx.GetComponent<SpriteRenderer>().color = Color.black;
         yield return new WaitForSeconds(_attackCooldown);
         _canAttack = true;
         yield return ParryCooldown();
     }
     private IEnumerator ParryCooldown() {
-        _canParry = false;
-        _ctx.GetComponent<SpriteRenderer>().color = Color.black;
         yield return new WaitForSeconds(PARRY_COOLDOWN);
         _ctx.GetComponent<SpriteRenderer>().color = Color.white;
         _canParry = true;
     }
     protected override void FollowTarget() {
         float direction = ((_player.gameObject.transform.position - _ctx.transform.position).normalized * _speed).x;
-        if (direction < 1) {
+        if (direction < 0) {
             _ctx.GetComponent<SpriteRenderer>().flipX = true;
         } else {
             _ctx.GetComponent<SpriteRenderer>().flipX = false;

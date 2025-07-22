@@ -41,7 +41,7 @@ public class Guard : AbsAttack {
     protected override IEnumerator ActivateSpecial(GameObject hitbox, GameObject target) {
         _parried = true;
         Vector2 direction = ((target.transform.position - _player.transform.position).normalized);
-        if (direction.x < 1) {
+        if (direction.x < 0) {
             _player.GetComponent<SpriteRenderer>().flipX = true;
         } else {
             _player.GetComponent<SpriteRenderer>().flipX = false;

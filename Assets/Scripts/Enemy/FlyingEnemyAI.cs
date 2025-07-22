@@ -41,7 +41,7 @@ public class FlyingEnemyAI : AbsEnemyAI {
             float y = Random.Range(-100, 100) / 10f;
             _ctx.Body.linearVelocity = new Vector2(x, y).normalized * _speed/2f;
 
-            if (x < 1) {
+            if (x < 0) {
                 _ctx.GetComponent<SpriteRenderer>().flipX = true;
             } else {
                 _ctx.GetComponent<SpriteRenderer>().flipX = false;
@@ -59,7 +59,7 @@ public class FlyingEnemyAI : AbsEnemyAI {
     }
     protected void LookAtTarget() {
         Vector3 direction = (_player.gameObject.transform.position - _ctx.transform.position).normalized * _speed;
-        if (direction.x < 1) {
+        if (direction.x < 0) {
             _ctx.GetComponent<SpriteRenderer>().flipX = true;
         } else {
             _ctx.GetComponent<SpriteRenderer>().flipX = false;
@@ -68,7 +68,7 @@ public class FlyingEnemyAI : AbsEnemyAI {
     }
     protected override void FollowTarget() {
         Vector3 direction = (_player.gameObject.transform.position - _ctx.transform.position).normalized * _speed;
-        if (direction.x < 1) {
+        if (direction.x < 0) {
             _ctx.GetComponent<SpriteRenderer>().flipX = true;
         } else {
             _ctx.GetComponent<SpriteRenderer>().flipX = false;

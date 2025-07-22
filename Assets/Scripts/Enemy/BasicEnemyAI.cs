@@ -11,8 +11,9 @@ public class BasicEnemyAI : AbsEnemyAI
         _ctx = enemy;
     }
     protected override void AttackTarget() {
+        _ctx.StartCoroutine(ToggleHitbox());
         float direction = ((_player.gameObject.transform.position - _ctx.transform.position).normalized * _speed).x;
-        if (direction < 1) {
+        if (direction < 0) {
             _ctx.GetComponent<SpriteRenderer>().flipX = true;
         } else {
             _ctx.GetComponent<SpriteRenderer>().flipX = false;
@@ -58,7 +59,7 @@ public class BasicEnemyAI : AbsEnemyAI
     }
     protected override void FollowTarget() {
         float direction = ((_player.gameObject.transform.position - _ctx.transform.position).normalized * _speed).x;
-        if (direction < 1) {
+        if (direction < 0) {
             _ctx.GetComponent<SpriteRenderer>().flipX = true;
         } else {
             _ctx.GetComponent<SpriteRenderer>().flipX = false;

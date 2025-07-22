@@ -10,6 +10,7 @@ public abstract class AbsEnemyAI
     protected float _followRange = 8;
     protected float _attackRange = 3;
     protected float _attackCooldown = 1f;
+    protected float _attackTime = 0.5f;
     protected abstract IEnumerator FocusPlayer();
     protected abstract IEnumerator Wander();
     protected abstract void FollowTarget();
@@ -41,5 +42,10 @@ public abstract class AbsEnemyAI
             }
             yield return new WaitForFixedUpdate();
         }
+    }
+    protected IEnumerator ToggleHitbox() {
+        _ctx.hitbox.SetActive(true);
+        yield return new WaitForSeconds(_attackTime);
+        _ctx.hitbox.SetActive(false);
     }
 }
