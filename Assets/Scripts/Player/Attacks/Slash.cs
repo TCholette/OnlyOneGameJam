@@ -16,6 +16,7 @@ public class Slash : AbsAttack
         _player.WeaponHitbox.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         _player.WeaponHitbox.SetActive(false);
+        _player.IsAttackCooldown = false;
     }
 
 }

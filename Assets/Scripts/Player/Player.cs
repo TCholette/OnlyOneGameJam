@@ -21,7 +21,11 @@ public class Player : MonoBehaviour {
     private bool _isBleeding = false;
     private bool _isDead = false;
     private int _charges;
+    private bool _isAttackCooldown;
+    private bool _isGuarding;
     private PlayerMovement _movement;
+    public bool IsAttackCooldown { get { return _isAttackCooldown; } set { _isAttackCooldown = value; } }
+    public bool IsGuarding { /*get { return _isAttackCooldown; }*/ set { _isGuarding = value; } }
     public bool IsDead { get { return _isDead; } }
     public int Charges { get { return _charges; } set { _charges = value; } }
     public GameObject WeaponHitbox { get { return _weaponHitbox; } }
@@ -29,7 +33,7 @@ public class Player : MonoBehaviour {
 
     private AbsAttack attack;
 
-    private bool test = false;
+    private int test = 0;
 
 
     public void HitEnemy(Enemy enemy) {
@@ -48,12 +52,24 @@ public class Player : MonoBehaviour {
         }
     }
 
-    public void SwitchTest() {
-        if (test) {
-            attack = new Slash(this);
+    public void Hit(int damage, int bleeding, GameObject source) {
+        if (!_isGuarding) {
+            LoseLife(damage);
+            AddBleeding(bleeding);
         } else {
-            attack = new Dash(this, 15f, 0.1f, 1f, 0.1f);
+            attack.Special(_weaponHitbox, source);
         }
+    }
+    public void SwitchTest() {
+        test++;
+        if (test == 0) {
+            attack = new Slash(this);
+        } else if (test == 1) {
+            attack = new Dash(this, 15f, 0.1f, 1f, 0.1f);
+        } else {
+            attack = new Guard(this, 0.5f, 2f, 0.2f, 3f, 15f);
+        }
+        test %= 3;
     }
     void Start() {
         _life = MAX_LIFE;

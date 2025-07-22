@@ -5,7 +5,6 @@ public class Dash : AbsAttack {
 
     private float _speed;
     private float _time;
-    private bool _isDashing = false;
     private float _cooldown;
     private float _hitWindow;
 
@@ -19,16 +18,13 @@ public class Dash : AbsAttack {
     }
 
     protected override void Execute(GameObject hitbox) {
-        if (!_isDashing) {
-            _isDashing = true;
-            _player.WeaponHitbox.SetActive(true);
-            Vector2 direction = (Camera.main.ScreenPointToRay(Input.mousePosition).GetPoint(0) - _player.transform.position);
-            direction = direction.normalized;
-            hitbox.transform.position = new Vector3(_player.transform.position.x + direction.x, _player.transform.position.y + direction.y, 0);
-            _player.StartCoroutine(Dashing(direction));
-            Debug.Log(direction);
-            _player.StartCoroutine(Cooldown());
-        }
+        _player.WeaponHitbox.SetActive(true);
+        Vector2 direction = (Camera.main.ScreenPointToRay(Input.mousePosition).GetPoint(0) - _player.transform.position);
+        direction = direction.normalized;
+        hitbox.transform.position = new Vector3(_player.transform.position.x + direction.x, _player.transform.position.y + direction.y, 0);
+        _player.StartCoroutine(Dashing(direction));
+        Debug.Log(direction);
+        _player.StartCoroutine(Cooldown());
     }
 
     private IEnumerator Dashing(Vector3 direction) {
@@ -44,8 +40,7 @@ public class Dash : AbsAttack {
     }
 
     private IEnumerator Cooldown() {
-        yield return new WaitForSeconds(_cooldown/2);
-        yield return new WaitForSeconds(_cooldown / 2);
-        _isDashing = false;
+        yield return new WaitForSeconds(_cooldown);
+        _player.IsAttackCooldown = false;
     }
 }

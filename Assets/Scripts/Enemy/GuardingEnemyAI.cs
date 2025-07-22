@@ -25,8 +25,7 @@ public class GuardingEnemyAI : AbsEnemyAI {
         _ctx.Body.linearVelocityX = direction * 10;
     }
     protected void Parry() {
-        _player.AddBleeding(10);
-        _player.LoseLife(100);
+        _player.Hit(100, 10, _ctx.gameObject);
         _ctx.Body.linearVelocityY = 10f;
     }
     public override bool Hit() {
