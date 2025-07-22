@@ -6,12 +6,10 @@ public class PlayerMovement : MonoBehaviour
     private const float JUMP_FORCE = 10f;
     private const float MOVE_FORCE = 6f;
     private const float FRICTION = 0.01f;
-    private const float COLLISION_RATIO = 2f;
-    private const float GROUND_FRICTION_RATIO = 5f;
+    private const float GROUND_FRICTION_RATIO = 10f;
 
     private bool _canMove = true;
     private bool _isGrounded = false;
-    private bool _isOnWall = false;
     private Rigidbody2D _body;
     public GameObject _checkpoint = null;
     private GameObject _tempCheckpoint = null;
@@ -23,9 +21,6 @@ public class PlayerMovement : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision) {
         if (collision.gameObject.CompareTag("Ground")) {
             _isGrounded = false;
-        }
-        if (collision.gameObject.CompareTag("Wall")) {
-            _isOnWall = false;
         }
     }
 
@@ -41,16 +36,6 @@ public class PlayerMovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.CompareTag("Ground")) {
             _isGrounded = true;
-            _isOnWall = false;
-        }
-        if (!IsGrounded && collision.gameObject.CompareTag("Wall") && _body.linearVelocityX != 0) {
-            Debug.Log("ON WALL");
-            _isOnWall = true;
-            if (_body.linearVelocityX > 0) {
-                _body.AddForceX(-1 * MOVE_FORCE * COLLISION_RATIO);
-            } else if (_body.linearVelocityX < 0) {
-                _body.AddForceX(MOVE_FORCE * COLLISION_RATIO);
-            }
         }
     }
 
@@ -86,12 +71,12 @@ public class PlayerMovement : MonoBehaviour
 
             if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.A)) {
                 _body.linearVelocityX = Mathf.Lerp(_body.linearVelocityX, 0, newFriction);
-            } else if (Input.GetKey(KeyCode.D) && !_isOnWall) {
+            } else if (Input.GetKey(KeyCode.D)) {
                 gameObject.GetComponent<SpriteRenderer>().flipX = false;
                 if (_body.linearVelocityX < MOVE_FORCE) {
                     _body.linearVelocityX = MOVE_FORCE;
                 }
-            } else if (Input.GetKey(KeyCode.A) && !_isOnWall) {
+            } else if (Input.GetKey(KeyCode.A)) {
                 gameObject.GetComponent<SpriteRenderer>().flipX = true;
                 if (_body.linearVelocityX > -MOVE_FORCE) {
                     _body.linearVelocityX = -MOVE_FORCE;
