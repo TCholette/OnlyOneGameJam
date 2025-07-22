@@ -8,7 +8,8 @@ public class Player : MonoBehaviour {
     private const int MAX_CHARGES = 1;
 
     [SerializeField] private GameObject lifeBar;
-    [SerializeField] private TextMeshProUGUI bleedText;
+    [SerializeField] private GameObject dropletTemplate;
+    [SerializeField] private Transform tearContainer;
     [SerializeField] private GameObject _weaponHitbox;
 
     private float _life;
@@ -51,7 +52,6 @@ public class Player : MonoBehaviour {
     public void AddBleeding(int amount) {
         if (!_isDead) {
             _bleeding += amount;
-            bleedText.text = _bleeding.ToString();
             if (!_isBleeding) {
                 _isBleeding = true;
                 StartCoroutine(Bleed());
@@ -60,10 +60,25 @@ public class Player : MonoBehaviour {
     }
 
     private IEnumerator Bleed() {
+        int i = 0;
         while (_isBleeding) {
             LoseLife(_bleeding);
+            if (i > 10) {
+                i = 0;
+                StartCoroutine(CreateDroplets());
+            }
+            i += _bleeding;
             yield return new WaitForSeconds(BLEED_TICK_TIME);
         }
+    }
+
+    private IEnumerator CreateDroplets() {
+        int bleed = _bleeding;
+        GameObject droplet = Instantiate(dropletTemplate, tearContainer);
+        float rand = Random.Range(lifeBar.transform.position.x - 300, lifeBar.transform.position.x + 300);
+        droplet.transform.position = new Vector2(rand ,lifeBar.transform.position.y);
+        yield return new WaitForSeconds(BLEED_TICK_TIME / (bleed*1f));
+
     }
 
     public void LoseLife(int amount) {
@@ -85,7 +100,6 @@ public class Player : MonoBehaviour {
             _isDead = true;
             _isBleeding = false;
             _bleeding = 0;
-            bleedText.text = _bleeding.ToString();
             _life = 0;
             _movement.Die();
             lifeBar.transform.localScale = new Vector3(0, lifeBar.transform.localScale.y);

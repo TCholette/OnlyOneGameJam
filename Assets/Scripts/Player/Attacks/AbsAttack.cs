@@ -1,5 +1,8 @@
 using UnityEngine;
 
+
+public enum Weapon { Sword, Spear, Shield, Axe }
+
 public abstract class AbsAttack {
 
     protected Player _player;
