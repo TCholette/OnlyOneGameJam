@@ -1,6 +1,7 @@
-using UnityEngine;
 using System.Collections;
 using TMPro;
+using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Player : MonoBehaviour {
     private const float BLEED_TICK_TIME = 0.05f;
@@ -10,6 +11,7 @@ public class Player : MonoBehaviour {
     [SerializeField] private GameObject lifeBar;
     [SerializeField] private GameObject dropletTemplate;
     [SerializeField] private Transform tearContainer;
+    [SerializeField] private GameObject chargeContainer;
     [SerializeField] private GameObject _weaponHitbox;
 
     private float _life;
@@ -27,6 +29,12 @@ public class Player : MonoBehaviour {
     private AbsAttack attack;
 
     private bool test = false;
+
+
+    public void removeCharge() {
+        _charges--;
+        UpdateChargeUI();
+    }
 
     public void SwitchTest() {
         if (test) {
@@ -46,6 +54,16 @@ public class Player : MonoBehaviour {
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
             attack.Activate(_weaponHitbox);
+        }
+    }
+
+    public void UpdateChargeUI() {
+        // replace code for better things
+        if (_charges > 0) {
+            chargeContainer.SetActive(true);
+            }
+        else {
+            chargeContainer.SetActive(false);
         }
     }
 
@@ -113,6 +131,7 @@ public class Player : MonoBehaviour {
         _isDead = false;
         lifeBar.transform.localScale = new Vector3(_lifeBarBaseScale, lifeBar.transform.localScale.y);
         _charges = MAX_CHARGES;
+        UpdateChargeUI();
         _life = MAX_LIFE;
         _movement.Respawn();
     }
