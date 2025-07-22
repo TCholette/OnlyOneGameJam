@@ -6,4 +6,5 @@ public struct SaveStruct
     public List<Weapon> weapons;
     public Weapon currentWeapon;
     public Vector2 lastCheckpoint;
+    public Vector2 lastPosition;
 }
