@@ -6,22 +6,21 @@ public class PlayerMovement : MonoBehaviour
     private const float JUMP_FORCE = 10f;
     private const float MOVE_FORCE = 6f;
     private const float FRICTION = 0.01f;
-    private const float COLLISION_RATIO = 0.2f;
+    private const float COLLISION_RATIO = 2f;
     private const float GROUND_FRICTION_RATIO = 5f;
 
     private bool _canMove = true;
     private bool _isGrounded = false;
     private bool _isOnWall = false;
     private Rigidbody2D _body;
-    private GameObject _checkpoint = null;
+    public GameObject _checkpoint = null;
     private GameObject _tempCheckpoint = null;
 
     public bool IsGrounded { get { return _isGrounded; } }
     public bool CanMove { set { _canMove = value; } }
 
 
-
-    private void OnTriggerExit2D(Collider2D collision) {
+    private void OnCollisionExit2D(Collision2D collision) {
         if (collision.gameObject.CompareTag("Ground")) {
             _isGrounded = false;
         }
@@ -37,6 +36,9 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("TempCheckpoint")) {
             _tempCheckpoint = collision.gameObject;
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.CompareTag("Ground")) {
             _isGrounded = true;
             _isOnWall = false;
@@ -45,9 +47,8 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("ON WALL");
             _isOnWall = true;
             if (_body.linearVelocityX > 0) {
-                _body.AddForceX(-1 * MOVE_FORCE);
-            }
-            else if (_body.linearVelocityX < 0) {
+                _body.AddForceX(-1 * MOVE_FORCE * COLLISION_RATIO);
+            } else if (_body.linearVelocityX < 0) {
                 _body.AddForceX(MOVE_FORCE * COLLISION_RATIO);
             }
         }

@@ -8,6 +8,7 @@ TagManager:
   - Checkpoint
   - TempCheckpoint
   - Enemy
+  - Wall
   layers:
   - Default
   - TransparentFX
