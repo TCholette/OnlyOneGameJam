@@ -14,6 +14,8 @@ public class Player : MonoBehaviour {
     [SerializeField] private Transform tearContainer;
     [SerializeField] private GameObject chargeContainer;
     [SerializeField] private GameObject _weaponHitbox;
+    [SerializeField] private GameObject _PantheonObject;
+    private Pantheon _pantheon;
 
     private float _life;
     private float _lifeBarBaseScale;
@@ -38,12 +40,24 @@ public class Player : MonoBehaviour {
 
     public void HitEnemy(Enemy enemy) {
         Weapon compareWeapon = enemy.Hit();
+        if (_pantheon.IsPopulated && compareWeapon != Weapon.None) {
+            _pantheon.IsPopulated = false;
+            _movement.CanMove = false;
+            gameObject.transform.position = SaveManager.Instance.save.lastPosition;
+            _movement.CanMove = true;
+            _movement.TempCheckpoint = null;
+            FullyHealAndRecharge();
+            return;
+        }
         if (compareWeapon != Weapon.None) { 
             if (!SaveManager.Instance.save.weapons.Contains(compareWeapon)) {
-                // send to pantheon, spawn enemies
+                SaveManager.Instance.save.lastPosition = gameObject.transform.position;
+                FullyHealAndRecharge();
+                StartCoroutine(_pantheon.SendToPantheon(enemy.type));
                 SaveManager.Instance.save.weapons.Add(compareWeapon);
             }
             StartCoroutine(enemy.Die());
+            return;
         }
         _charges--;
         UpdateChargeUI();
@@ -51,6 +65,8 @@ public class Player : MonoBehaviour {
             Debug.Log(wep);
         }
     }
+
+   
 
     public void Hit(int damage, int bleeding, GameObject source) {
         if (!_isGuarding) {
@@ -76,6 +92,8 @@ public class Player : MonoBehaviour {
         _charges = MAX_CHARGES;
         _lifeBarBaseScale = lifeBar.transform.localScale.x;
         _movement = gameObject.GetComponent<PlayerMovement>();
+        _pantheon = _PantheonObject.GetComponent<Pantheon>();
+        _pantheon.Context = this;
         attack = new Slash(this);
     }
 
@@ -103,6 +121,15 @@ public class Player : MonoBehaviour {
                 StartCoroutine(Bleed());
             }
         }
+    }
+
+    public void FullyHealAndRecharge() {
+        _bleeding = 0;
+        _isBleeding = false;
+        _life = MAX_LIFE;
+        _charges = MAX_CHARGES;
+        UpdateChargeUI();
+        lifeBar.transform.localScale = new Vector3(_lifeBarBaseScale, lifeBar.transform.localScale.y);
     }
 
     private IEnumerator Bleed() {

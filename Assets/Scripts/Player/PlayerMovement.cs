@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _body;
     public GameObject _checkpoint = null;
     private GameObject _tempCheckpoint = null;
+    public GameObject TempCheckpoint {  set { _tempCheckpoint = value; } }
 
     public bool IsGrounded { get { return _isGrounded; } }
     public bool CanMove { set { _canMove = value; } }
