@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private bool _canMove = true;
     private bool _isGrounded = false;
     private Rigidbody2D _body;
+    private Animator _anim;
     public GameObject _checkpoint = null;
     private GameObject _tempCheckpoint = null;
     public GameObject TempCheckpoint {  set { _tempCheckpoint = value; } }
@@ -42,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start() {
         _body = gameObject.GetComponent<Rigidbody2D>();
+        _anim = GetComponent<Animator>();
     }
 
     public void Die() {
@@ -83,7 +85,13 @@ public class PlayerMovement : MonoBehaviour
                     _body.linearVelocityX = -MOVE_FORCE;
                 }
             } else {
-               // _body.linearVelocityX = Mathf.Lerp(_body.linearVelocityX, 0, newFriction);
+                // _body.linearVelocityX = Mathf.Lerp(_body.linearVelocityX, 0, newFriction);
+            }
+
+            if (_body.linearVelocity == Vector2.zero) {
+                _anim.SetBool("walking", false);
+            } else {
+                _anim.SetBool("walking", true);
             }
         }
        

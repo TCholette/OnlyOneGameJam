@@ -38,31 +38,32 @@ public class Player : MonoBehaviour {
     private int test = 0;
 
 
+
     public void HitEnemy(Enemy enemy) {
         Weapon compareWeapon = enemy.Hit();
-        if (_pantheon.IsPopulated && compareWeapon != Weapon.None) {
-            _pantheon.IsPopulated = false;
-            _movement.CanMove = false;
-            gameObject.transform.position = SaveManager.Instance.save.lastPosition;
-            _movement.CanMove = true;
-            _movement.TempCheckpoint = null;
-            FullyHealAndRecharge();
-            return;
+        if (!_pantheon.IsPopulated) {
+            if (_charges != 0) {
+                ChangeCharges(_charges - 1);
+            }
         }
-        if (compareWeapon != Weapon.None) { 
-            if (!SaveManager.Instance.save.weapons.Contains(compareWeapon)) {
+        if (compareWeapon != Weapon.None) {
+            if (_pantheon.IsPopulated) {
+                _pantheon.IsPopulated = false;
+                _movement.CanMove = false;
+                gameObject.transform.position = SaveManager.Instance.save.lastPosition;
+                _movement.CanMove = true;
+                _movement.TempCheckpoint = null;
+                ChangeCharges(0);
+                StartCoroutine(enemy.Die());
+                //FullyHealAndRecharge();
+            }
+            else if (!SaveManager.Instance.save.weapons.Contains(compareWeapon)) {
                 SaveManager.Instance.save.lastPosition = gameObject.transform.position;
-                FullyHealAndRecharge();
+                //FullyHealAndRecharge();
                 StartCoroutine(_pantheon.SendToPantheon(enemy.type));
                 SaveManager.Instance.save.weapons.Add(compareWeapon);
             }
             StartCoroutine(enemy.Die());
-            return;
-        }
-        _charges--;
-        UpdateChargeUI();
-        foreach (Weapon wep in SaveManager.Instance.save.weapons) {
-            Debug.Log(wep);
         }
     }
 
@@ -77,7 +78,6 @@ public class Player : MonoBehaviour {
         }
     }
     public void SwitchTest() {
-        test++;
         if (test == 0) {
             attack = new Slash(this);
         } else if (test == 1) {
@@ -85,6 +85,7 @@ public class Player : MonoBehaviour {
         } else {
             attack = new Guard(this, 0.5f, 2f, 0.2f, 3f, 15f);
         }
+        test++;
         test %= 3;
     }
     void Start() {
@@ -103,7 +104,8 @@ public class Player : MonoBehaviour {
         }
     }
 
-    public void UpdateChargeUI() {
+    public void ChangeCharges(int amount) {
+        _charges = amount;
         // replace code for better things
         if (_charges > 0) {
             chargeContainer.SetActive(true);
@@ -114,7 +116,7 @@ public class Player : MonoBehaviour {
     }
 
     public void AddBleeding(int amount) {
-        if (!_isDead) {
+        if (!_isDead && !_pantheon.IsPopulated) {
             _bleeding += amount;
             if (!_isBleeding) {
                 _isBleeding = true;
@@ -124,12 +126,15 @@ public class Player : MonoBehaviour {
     }
 
     public void FullyHealAndRecharge() {
-        _bleeding = 0;
-        _isBleeding = false;
-        _life = MAX_LIFE;
-        _charges = MAX_CHARGES;
-        UpdateChargeUI();
-        lifeBar.transform.localScale = new Vector3(_lifeBarBaseScale, lifeBar.transform.localScale.y);
+
+        //yield return new WaitForSeconds(2f);
+        //_bleeding = 0;
+        //_isBleeding = false;
+        //_life = MAX_LIFE;
+        //_charges = 0;
+        //_charges = MAX_CHARGES;  no recharge after pantheon kill
+        //UpdateChargeUI();
+        //lifeBar.transform.localScale = new Vector3(_lifeBarBaseScale, lifeBar.transform.localScale.y);
     }
 
     private IEnumerator Bleed() {
@@ -155,7 +160,7 @@ public class Player : MonoBehaviour {
     }
 
     public void LoseLife(int amount) {
-        if (!_isDead) {
+        if (!_isDead && !_pantheon.IsPopulated) {
             if (_life > amount) {
                 _life -= amount;
                 lifeBar.transform.localScale = new Vector3(_life / MAX_LIFE * _lifeBarBaseScale, lifeBar.transform.localScale.y);
@@ -165,6 +170,20 @@ public class Player : MonoBehaviour {
 
             if (_life <= 0) {
                 Die();
+            }
+        }
+    }
+    public void Heal(int life, int bleed) {
+        if (!_isDead) {
+            if (_life + life <= MAX_LIFE) {
+                _life += life;
+            } else {
+                _life = MAX_LIFE;
+            }
+            if (_bleeding > bleed) {
+                _bleeding -= bleed;
+            } else {
+                _bleeding = 0;
             }
         }
     }
@@ -185,8 +204,7 @@ public class Player : MonoBehaviour {
         yield return new WaitForSeconds(0f);
         _isDead = false;
         lifeBar.transform.localScale = new Vector3(_lifeBarBaseScale, lifeBar.transform.localScale.y);
-        _charges = MAX_CHARGES;
-        UpdateChargeUI();
+        ChangeCharges(MAX_CHARGES);
         _life = MAX_LIFE;
         _movement.Respawn();
     }

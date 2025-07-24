@@ -6,9 +6,11 @@ public class Level : MonoBehaviour
     [SerializeField] private int index;
     [SerializeField] private GameObject entry;
     [SerializeField] private GameObject exit;
-    [SerializeField] private EnemySpawnPoint[] spawns;
+    [SerializeField] private EnemySpawnPoint[] mandatorySpawns;
+    [SerializeField] private EnemySpawnPoint[] otherSpawns;
 
     private System.Collections.Generic.List<Enemy> enemies = new();
+    private System.Collections.Generic.List<Enemy> goalEnemies = new();
     private bool _finished = false;
     private bool _started = false;
     private Player player;
@@ -24,7 +26,12 @@ public class Level : MonoBehaviour
         Debug.Log("init");
         exit.SetActive(true);
         entry.SetActive(true);
-        foreach (EnemySpawnPoint spawn in spawns) {
+        foreach (EnemySpawnPoint spawn in mandatorySpawns) {
+            spawn.Init();
+            enemies.Add(spawn.enemy);
+            goalEnemies.Add(spawn.enemy);
+        }
+        foreach (EnemySpawnPoint spawn in otherSpawns) {
             spawn.Init();
             enemies.Add(spawn.enemy);
         }
@@ -39,6 +46,7 @@ public class Level : MonoBehaviour
             }
         }
         enemies = new();
+        goalEnemies = new();
         _started = false;
     }
 
@@ -49,7 +57,7 @@ public class Level : MonoBehaviour
             if (enemies.Count == 0) {
                 _finished = true;
             } else {
-                foreach (Enemy enemy in enemies) {
+                foreach (Enemy enemy in goalEnemies) {
                     if (enemy != null) {
                         _finished = false;
                         break;

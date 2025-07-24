@@ -3,10 +3,10 @@ using UnityEngine;
 
 
 public enum EnemyType {
-    devil,
-    imp,
-    beast,
-    brute
+    devil = 0,
+    imp = 1,
+    beast = 2,
+    brute = 3   
 }
 public class Enemy : MonoBehaviour
 {

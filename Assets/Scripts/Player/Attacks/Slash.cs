@@ -6,7 +6,7 @@ public class Slash : AbsAttack
     }
 
     protected override void Execute(GameObject hitbox) {
-        Vector2 direction = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - _player.transform.position);
+        Vector2 direction = (Camera.main.ScreenPointToRay(Input.mousePosition).GetPoint(0) - _player.transform.position);
         direction = direction.normalized;
         hitbox.transform.position = new Vector3(_player.transform.position.x + direction.x, _player.transform.position.y + direction.y, 0);
         _player.StartCoroutine(FinishSlash());
