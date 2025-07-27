@@ -18,6 +18,7 @@ public class Player : MonoBehaviour {
     [SerializeField] private GameObject _weaponHitbox;
     [SerializeField] private GameObject _PantheonObject;
     [SerializeField] private GameObject _weaponWheel;
+    [SerializeField] private GameObject[] _weapons;
     private Pantheon _pantheon;
 
     private float _life;
@@ -62,13 +63,13 @@ public class Player : MonoBehaviour {
                 _movement.TempCheckpoint = null;
                 ChangeCharges(0);
                 StartCoroutine(enemy.Die());
-                //FullyHealAndRecharge();
             }
             else if (!SaveManager.Instance.save.weapons.Contains(compareWeapon)) {
                 SaveManager.Instance.save.lastPosition = gameObject.transform.position;
-                //FullyHealAndRecharge();
                 StartCoroutine(_pantheon.SendToPantheon(enemy.type));
                 SaveManager.Instance.save.weapons.Add(compareWeapon);
+                Debug.Log("weapon: " + (int)compareWeapon);
+                _weapons[(int)compareWeapon].SetActive(true);
             }
             StartCoroutine(enemy.Die());
         }
@@ -96,6 +97,9 @@ public class Player : MonoBehaviour {
         test %= 3;
     }
     void Start() {
+        foreach(GameObject weap in _weapons) {
+            weap.SetActive(false);
+        }
         _life = MAX_LIFE;
         _charges = MAX_CHARGES;
         _lifeBarBaseScale = lifeBar.transform.localScale.x;
