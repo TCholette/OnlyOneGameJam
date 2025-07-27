@@ -25,8 +25,6 @@ public class WeaponSelect : MonoBehaviour, IPointerEnterHandler/*, IPointerExitH
             case Weapon.Shield:
                 player.Attack = new Guard(player, 0.5f, 2f, 0.2f, 3f, 15f);
                 break;
-            case Weapon.Axe:
-                break;
             default:
                 break;
         }

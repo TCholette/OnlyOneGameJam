@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public enum Weapon { None, Sword, Spear, Shield, Axe }
+public enum Weapon { Sword, Spear, Shield, None }
 
 public abstract class AbsAttack {
 
