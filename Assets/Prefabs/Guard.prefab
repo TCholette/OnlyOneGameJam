@@ -80,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -7833143443294867195, guid: 630bb8d051c1cce4c8b62164ca65eeb7, type: 3}
+  m_Sprite: {fileID: -6348806237195144154, guid: 02a4e4fb1d54c5748895bc9ab1ca259c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -273,7 +273,6 @@ MonoBehaviour:
   despawns: 0
   damage: 100
   bleeding: 2
-  parent: {fileID: 2090790581145291843}
 --- !u!70 &88866118284503514
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

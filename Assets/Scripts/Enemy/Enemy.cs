@@ -48,16 +48,18 @@ public class Enemy : MonoBehaviour
     public IEnumerator Die() {
         if (!_isDead) {
             //FLESH
-            int amount = Random.Range(5, 10);
+            int amount = Random.Range(5, 100);
             for (int i = 0; i < amount; i++) {
                 int index = Random.Range(0, StaticManager.flesh.Length);
                 Sprite flesh = StaticManager.flesh[index];
                 GameObject fleshObj = Instantiate(StaticManager.fleshTemplate);
                 fleshObj.transform.position = transform.position;
-                float x = Random.Range(-50, 50) / 10f;
-                float y = Random.Range(-50, 50) / 10f;
+                float x = Random.Range(-5f, 5f);
+                float y = Random.Range(-5f, 5f);
+                float size = Random.Range(0.1f, 0.6f);
                 fleshObj.GetComponent<SpriteRenderer>().sprite = flesh;
                 fleshObj.GetComponent<Rigidbody2D>().linearVelocity = new Vector2(x, y);
+                fleshObj.transform.localScale = new Vector3(size, size);
             }
 
             Destroy(gameObject);

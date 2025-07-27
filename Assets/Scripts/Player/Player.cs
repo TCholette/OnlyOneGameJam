@@ -100,6 +100,7 @@ public class Player : MonoBehaviour {
         foreach(GameObject weap in _weapons) {
             weap.SetActive(false);
         }
+        _weapons[0].SetActive(true);
         _life = MAX_LIFE;
         _charges = MAX_CHARGES;
         _lifeBarBaseScale = lifeBar.transform.localScale.x;
@@ -190,7 +191,6 @@ public class Player : MonoBehaviour {
             } else {
                 _life = 0;
             }
-
             if (_life <= 0) {
                 Die();
             }
