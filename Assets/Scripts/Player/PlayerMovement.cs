@@ -94,6 +94,5 @@ public class PlayerMovement : MonoBehaviour
                 _anim.SetBool("walking", true);
             }
         }
-       
     }
 }

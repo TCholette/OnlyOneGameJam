@@ -10,15 +10,20 @@ public class Player : MonoBehaviour {
     private const int MAX_CHARGES = 1;
 
     [SerializeField] private GameObject lifeBar;
+    [SerializeField] private GameObject leftBar;
+    [SerializeField] private GameObject rightBar;
     [SerializeField] private GameObject dropletTemplate;
     [SerializeField] private Transform tearContainer;
     [SerializeField] private GameObject chargeContainer;
     [SerializeField] private GameObject _weaponHitbox;
     [SerializeField] private GameObject _PantheonObject;
+    [SerializeField] private GameObject _weaponWheel;
     private Pantheon _pantheon;
 
     private float _life;
     private float _lifeBarBaseScale;
+    private Vector2 _leftBarPos;
+    private Vector2 _rightBarPos;
     private int _bleeding = 0;
     private bool _isBleeding = false;
     private bool _isDead = false;
@@ -32,11 +37,13 @@ public class Player : MonoBehaviour {
     public int Charges { get { return _charges; } set { _charges = value; } }
     public GameObject WeaponHitbox { get { return _weaponHitbox; } }
     public PlayerMovement Movement { get { return _movement; } }
+    public AbsAttack Attack { set { attack = value; } }
 
     private AbsAttack attack;
 
     private int test = 0;
 
+    public WeaponSelect LastWheel;
 
 
     public void HitEnemy(Enemy enemy) {
@@ -96,11 +103,18 @@ public class Player : MonoBehaviour {
         _pantheon = _PantheonObject.GetComponent<Pantheon>();
         _pantheon.Context = this;
         attack = new Slash(this);
+        _leftBarPos = leftBar.transform.position;
+        _rightBarPos = rightBar.transform.position;
     }
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
             attack.Activate(_weaponHitbox);
+        }
+        if (Input.GetKey(KeyCode.Mouse1)) {
+            _weaponWheel.SetActive(true);
+        } else {
+            _weaponWheel.SetActive(false);
         }
     }
 
@@ -159,11 +173,16 @@ public class Player : MonoBehaviour {
 
     }
 
+    private void UpdateLifeBar(float amount) {
+        leftBar.transform.position -= new Vector3(amount * _lifeBarBaseScale*100/(2*MAX_LIFE),0f,0f);
+        rightBar.transform.position += new Vector3(amount * _lifeBarBaseScale*100/(2 * MAX_LIFE), 0f, 0f);
+        lifeBar.transform.localScale = new Vector3(_life / MAX_LIFE * _lifeBarBaseScale, lifeBar.transform.localScale.y);
+    }
+
     public void LoseLife(int amount) {
         if (!_isDead && !_pantheon.IsPopulated) {
             if (_life > amount) {
                 _life -= amount;
-                lifeBar.transform.localScale = new Vector3(_life / MAX_LIFE * _lifeBarBaseScale, lifeBar.transform.localScale.y);
             } else {
                 _life = 0;
             }
@@ -172,6 +191,7 @@ public class Player : MonoBehaviour {
                 Die();
             }
         }
+        UpdateLifeBar(-amount);
     }
     public void Heal(int life, int bleed) {
         if (!_isDead) {
@@ -186,6 +206,7 @@ public class Player : MonoBehaviour {
                 _bleeding = 0;
             }
         }
+        UpdateLifeBar(life);
     }
     public void Die() {
         if (!_isDead) {
@@ -203,6 +224,8 @@ public class Player : MonoBehaviour {
     private IEnumerator Respawn() {
         yield return new WaitForSeconds(0f);
         _isDead = false;
+        rightBar.transform.position = _rightBarPos;
+        leftBar.transform.position = _leftBarPos;
         lifeBar.transform.localScale = new Vector3(_lifeBarBaseScale, lifeBar.transform.localScale.y);
         ChangeCharges(MAX_CHARGES);
         _life = MAX_LIFE;
