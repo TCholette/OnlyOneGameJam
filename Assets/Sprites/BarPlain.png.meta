@@ -195,6 +195,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -959,7 +972,41 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      BarPlain_0: -6415019042024538745
+      BarPlain_1: -2711697602069857768
+      BarPlain_10: -3646879151236993812
+      BarPlain_11: -2882947919579399859
+      BarPlain_12: 2516403965457954364
+      BarPlain_13: 545737247665874488
+      BarPlain_14: 6585610513865446447
+      BarPlain_15: -5760159775638083480
+      BarPlain_16: 7022827715933620753
+      BarPlain_17: 3622149894180605508
+      BarPlain_18: 2066597788653881735
+      BarPlain_19: 4916626847999831420
+      BarPlain_2: -6686448832450991258
+      BarPlain_20: -41317690922406343
+      BarPlain_21: 9104294154506466421
+      BarPlain_22: -819112788842218824
+      BarPlain_23: 4116085509449900623
+      BarPlain_24: 5768479911865005232
+      BarPlain_25: -9164928993796818720
+      BarPlain_26: 6583557022756846726
+      BarPlain_27: -3230936079812991916
+      BarPlain_28: -4251566759194115403
+      BarPlain_29: -8799362013561195147
+      BarPlain_3: -7510581641157016077
+      BarPlain_30: -4398144119750450942
+      BarPlain_31: -2563574625035406643
+      BarPlain_32: 1097824015182522789
+      BarPlain_33: -6616399149856780098
+      BarPlain_4: -6204933367821722770
+      BarPlain_5: -8244471948247588931
+      BarPlain_6: -6671967968930905700
+      BarPlain_7: -2230502037771163693
+      BarPlain_8: 7382095052570382807
+      BarPlain_9: -4224011295953980378
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

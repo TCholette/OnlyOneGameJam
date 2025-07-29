@@ -38,7 +38,16 @@ public class PlayerMovement : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.CompareTag("Ground")) {
             _isGrounded = true;
+            playLandSound();
         }
+    }
+
+    public void playWalkSound() {
+        ProxyFmodPlayer.PlaySound<string>("Walk", gameObject);
+    }
+
+    public void playLandSound() {
+        ProxyFmodPlayer.PlaySound<string>("Land", gameObject);
     }
 
     private void Start() {

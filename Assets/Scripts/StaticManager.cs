@@ -25,7 +25,9 @@ public class StaticManager : MonoBehaviour
         enemyTemplate = enemyTemplateObj;
         int i = 0;
         foreach (var template in enemyTemplateObjs) {
+            if (!enemyTemplates.ContainsValue(template)) {  
             enemyTemplates.Add((EnemyType)i, template);
+            }
             Debug.Log((EnemyType)i);
             i++;
         }
