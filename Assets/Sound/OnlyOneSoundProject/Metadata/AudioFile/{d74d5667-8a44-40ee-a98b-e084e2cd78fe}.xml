@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{d74d5667-8a44-40ee-a98b-e084e2cd78fe}">
+		<property name="assetPath">
+			<value>Music/Title Theme Master Intro.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>16</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{821c9465-3e60-4771-8724-d7080c7c16fb}</destination>
+		</relationship>
+	</object>
+</objects>

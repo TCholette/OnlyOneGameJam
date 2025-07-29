@@ -15,6 +15,7 @@ public class Pantheon : MonoBehaviour {
         yield return new WaitForSeconds(PANTHEON_BUFFER_S);
         _ctx.ChangeCharges(1);
         _isInPantheon = true;
+        ProxyFmodPlayer.SetParam<string>(StaticManager.gameMusic, new("Music", "Pantheon"));
         _ctx.gameObject.transform.position = _pantheonPoint.transform.position - new Vector3(2, 0);
         _ctx.Movement.CanMove = true;
         _ctx.Movement.TempCheckpoint = _pantheonPoint;

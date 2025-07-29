@@ -12,6 +12,7 @@ public class Player : MonoBehaviour {
     [SerializeField] private GameObject lifeBar;
     [SerializeField] private GameObject leftBar;
     [SerializeField] private GameObject rightBar;
+    [SerializeField] private GameObject pauseMenu;
     [SerializeField] private GameObject dropletTemplate;
     [SerializeField] private Transform tearContainer;
     [SerializeField] private GameObject chargeContainer;
@@ -56,6 +57,7 @@ public class Player : MonoBehaviour {
         }
         if (compareWeapon != Weapon.None) {
             if (_pantheon.IsPopulated) {
+                ProxyFmodPlayer.SetParam<string>(StaticManager.gameMusic, new("Music", "Game"));
                 _pantheon.IsPopulated = false;
                 _movement.CanMove = false;
                 gameObject.transform.position = SaveManager.Instance.save.lastPosition;
