@@ -172,7 +172,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      OnlyOneFlyer_Idle_009_0: -4482327438654443657
+      OnlyOneFlyer_Idle_009_1: 7171519807337890442
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
