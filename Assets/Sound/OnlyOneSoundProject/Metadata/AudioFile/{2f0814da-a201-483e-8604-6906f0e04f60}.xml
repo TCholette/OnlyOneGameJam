@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{2f0814da-a201-483e-8604-6906f0e04f60}">
+		<property name="assetPath">
+			<value>Status/MC_Pain7.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.56156462585034017</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{821c9465-3e60-4771-8724-d7080c7c16fb}</destination>
+		</relationship>
+	</object>
+</objects>

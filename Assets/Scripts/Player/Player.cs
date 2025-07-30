@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using System.Collections;
 using System.Linq;
 using TMPro;
@@ -7,6 +8,9 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 public class Player : MonoBehaviour {
     private const float BLEED_TICK_TIME = 0.05f;
     private const float MAX_LIFE = 1000;
+    private const float HEALTHY_LIFE_THRESHOLD = MAX_LIFE - (2 * (MAX_LIFE/10));
+    private const float MID_LIFE_THREHSOLD = MAX_LIFE / 2;
+    private const float DYING_LIFE_THRESHOLD = (2 * (MAX_LIFE / 10));
     private const int MAX_CHARGES = 1;
 
     [SerializeField] private GameObject lifeBar;
@@ -20,6 +24,8 @@ public class Player : MonoBehaviour {
     [SerializeField] private GameObject _PantheonObject;
     [SerializeField] private GameObject _weaponWheel;
     [SerializeField] private GameObject[] _weapons;
+    private EventInstance healthSounds;
+    private float heartIntensity = 0f;
     private Pantheon _pantheon;
 
     private float _life;
@@ -99,6 +105,7 @@ public class Player : MonoBehaviour {
         test %= 3;
     }
     void Start() {
+        healthSounds = (EventInstance)ProxyFmodPlayer.CreateSound<string>("Health", gameObject);
         foreach(GameObject weap in _weapons) {
             weap.SetActive(false);
         }
@@ -181,7 +188,35 @@ public class Player : MonoBehaviour {
 
     }
 
+    private void UpdateLifeSounds() {
+        Debug.Log(_life);
+        if (_life >= HEALTHY_LIFE_THRESHOLD) {
+            healthSounds.stop(STOP_MODE.ALLOWFADEOUT);
+            heartIntensity = 0f;
+            Debug.Log("Stopping");
+        }
+        if (_life <= HEALTHY_LIFE_THRESHOLD) {
+            PLAYBACK_STATE isPaused;
+            healthSounds.getPlaybackState(out isPaused);
+            if (isPaused == PLAYBACK_STATE.STOPPED) {
+                healthSounds.start();
+            }
+            if (_life > MID_LIFE_THREHSOLD) {
+                ProxyFmodPlayer.SetParam<string>(healthSounds, new("Health", "Low"));
+                heartIntensity = 0f;
+                Debug.Log("Starting");
+            }
+            else if (_life <= MID_LIFE_THREHSOLD && _life > DYING_LIFE_THRESHOLD) {
+                ProxyFmodPlayer.SetParam<string>(healthSounds, new("Health", "Mid"));
+                ProxyFmodPlayer.SetParam<float>(healthSounds, new("HealthIntensity", heartIntensity));
+                heartIntensity += 1f/DYING_LIFE_THRESHOLD;
+                Debug.Log("Mid");
+            }
+        }
+    }
+
     private void UpdateLifeBar(float amount) {
+        UpdateLifeSounds();
         leftBar.transform.position -= new Vector3(amount * _lifeBarBaseScale*100/(2*MAX_LIFE),0f,0f);
         rightBar.transform.position += new Vector3(amount * _lifeBarBaseScale*100/(2 * MAX_LIFE), 0f, 0f);
         lifeBar.transform.localScale = new Vector3(_life / MAX_LIFE * _lifeBarBaseScale, lifeBar.transform.localScale.y);
@@ -224,6 +259,8 @@ public class Player : MonoBehaviour {
             _movement.Die();
             lifeBar.transform.localScale = new Vector3(0, lifeBar.transform.localScale.y);
             //Add here
+            healthSounds.stop(STOP_MODE.ALLOWFADEOUT);
+            ProxyFmodPlayer.PlaySound<string>("PlayerDeath", gameObject);
             StartCoroutine(Respawn());
         }
     }

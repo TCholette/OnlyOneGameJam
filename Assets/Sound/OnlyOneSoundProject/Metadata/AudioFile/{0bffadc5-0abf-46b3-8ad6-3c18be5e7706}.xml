@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{0bffadc5-0abf-46b3-8ad6-3c18be5e7706}">
+		<property name="assetPath">
+			<value>Status/Breathingnoverb.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>6</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{821c9465-3e60-4771-8724-d7080c7c16fb}</destination>
+		</relationship>
+	</object>
+</objects>
