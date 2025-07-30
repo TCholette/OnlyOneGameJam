@@ -97,10 +97,17 @@
 		<property name="start">
 			<value>1</value>
 		</property>
+		<property name="volume">
+			<value>10</value>
+		</property>
+		<property name="pitch">
+			<value>2.79999995</value>
+		</property>
 		<relationship name="modulators">
 			<destination>{4d13f7a3-bb93-4323-9fb8-de131ce62293}</destination>
 			<destination>{eebc72d3-73bb-4a03-8069-637358cdf378}</destination>
 			<destination>{9ee0b706-991f-4718-aacb-61c12ecb8b09}</destination>
+			<destination>{e3d28ded-8516-43d5-bc71-53892664b973}</destination>
 		</relationship>
 		<relationship name="audioFile">
 			<destination>{a1d89b94-83c3-4454-945e-a820cabefc8d}</destination>
@@ -108,11 +115,15 @@
 	</object>
 	<object class="SingleSound" id="{288e101e-5bdb-41c2-95c2-08155f325bf9}">
 		<property name="volume">
-			<value>-4.5</value>
+			<value>-6</value>
+		</property>
+		<property name="pitch">
+			<value>2.79999995</value>
 		</property>
 		<relationship name="modulators">
 			<destination>{44876992-a843-4a71-b8c3-67e3d5b876fb}</destination>
 			<destination>{d74bee93-946c-4ef9-a4cf-658cea41bc5a}</destination>
+			<destination>{0b70a1fc-4a0f-4088-8989-eef01f3c4fb8}</destination>
 		</relationship>
 		<relationship name="audioFile">
 			<destination>{44dd757c-3b40-4fc4-be40-1063d6e01d86}</destination>
@@ -142,6 +153,8 @@
 		<relationship name="effects">
 			<destination>{edd1715f-e52f-48f2-bb21-e7cd8a2fe64f}</destination>
 			<destination>{c3409a1f-56fd-4db3-be9c-22aff43ab614}</destination>
+			<destination>{dd24e2f4-28cc-46a1-911f-ec5f7fb488e9}</destination>
+			<destination>{851d0cf4-eb95-4cc5-a67a-ed9571050845}</destination>
 			<destination>{fd9617b5-f954-4229-aa9c-31cfed0d65d0}</destination>
 		</relationship>
 	</object>
@@ -149,9 +162,6 @@
 	<object class="RandomizerModulator" id="{4d13f7a3-bb93-4323-9fb8-de131ce62293}">
 		<property name="nameOfPropertyBeingModulated">
 			<value>startOffset</value>
-		</property>
-		<property name="amount">
-			<value>24</value>
 		</property>
 	</object>
 	<object class="RandomizerModulator" id="{eebc72d3-73bb-4a03-8069-637358cdf378}">
@@ -166,8 +176,31 @@
 		<property name="nameOfPropertyBeingModulated">
 			<value>volume</value>
 		</property>
-		<property name="amount">
-			<value>2.5</value>
+	</object>
+	<object class="ADSRModulator" id="{e3d28ded-8516-43d5-bc71-53892664b973}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="initialValue">
+			<value>-80</value>
+		</property>
+		<property name="attackTime">
+			<value>180</value>
+		</property>
+		<property name="holdTime">
+			<value>140</value>
+		</property>
+		<property name="decayTime">
+			<value>700</value>
+		</property>
+		<property name="sustainValue">
+			<value>-80</value>
+		</property>
+		<property name="releaseTime">
+			<value>0</value>
+		</property>
+		<property name="finalValue">
+			<value>-80</value>
 		</property>
 	</object>
 	<object class="RandomizerModulator" id="{44876992-a843-4a71-b8c3-67e3d5b876fb}">
@@ -182,8 +215,37 @@
 		<property name="nameOfPropertyBeingModulated">
 			<value>volume</value>
 		</property>
-		<property name="amount">
-			<value>1</value>
+	</object>
+	<object class="ADSRModulator" id="{0b70a1fc-4a0f-4088-8989-eef01f3c4fb8}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="initialValue">
+			<value>-80</value>
+		</property>
+		<property name="attackTime">
+			<value>180</value>
+		</property>
+		<property name="attackShape">
+			<value>-0.095856823</value>
+		</property>
+		<property name="holdTime">
+			<value>0</value>
+		</property>
+		<property name="decayTime">
+			<value>20</value>
+		</property>
+		<property name="decayShape">
+			<value>-1.00000048</value>
+		</property>
+		<property name="sustainValue">
+			<value>-80</value>
+		</property>
+		<property name="releaseTime">
+			<value>0</value>
+		</property>
+		<property name="finalValue">
+			<value>-80</value>
 		</property>
 	</object>
 	<object class="ADSRModulator" id="{46dea725-1e03-419f-b6e5-fcfaa5c5a390}">
@@ -258,18 +320,55 @@
 			<value>-10.0487595</value>
 		</property>
 	</object>
+	<object class="DistortionEffect" id="{dd24e2f4-28cc-46a1-911f-ec5f7fb488e9}">
+		<property name="level">
+			<value>0.63499999</value>
+		</property>
+	</object>
+	<object class="MultibandDynamicsEffect" id="{851d0cf4-eb95-4cc5-a67a-ed9571050845}">
+		<property name="upperFrequency">
+			<value>2400</value>
+		</property>
+		<property name="modeB">
+			<value>4</value>
+		</property>
+		<property name="modeC">
+			<value>1</value>
+		</property>
+		<property name="thresholdB">
+			<value>-18.4616184</value>
+		</property>
+		<property name="thresholdC">
+			<value>-10.6667118</value>
+		</property>
+		<property name="ratioB">
+			<value>3.70000005</value>
+		</property>
+		<property name="ratioC">
+			<value>4</value>
+		</property>
+		<property name="attackB">
+			<value>3.4000001</value>
+		</property>
+		<property name="releaseB">
+			<value>480</value>
+		</property>
+	</object>
 	<object class="CompressorEffect" id="{fd9617b5-f954-4229-aa9c-31cfed0d65d0}">
 		<property name="threshold">
 			<value>-34.5</value>
 		</property>
 		<property name="ratio">
-			<value>3.60000014</value>
+			<value>50</value>
 		</property>
 		<property name="attackTime">
-			<value>38</value>
+			<value>6.4000001</value>
 		</property>
 		<property name="releaseTime">
-			<value>78</value>
+			<value>92</value>
+		</property>
+		<property name="gain">
+			<value>4.5</value>
 		</property>
 	</object>
 </objects>

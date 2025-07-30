@@ -15,6 +15,7 @@ public class Dash : AbsAttack {
         _cooldown = cooldown;
         _hitWindow = hitWindow;
         _bleed = _bleedAmount;
+        _type = Weapon.Spear;
     }
 
     protected override void Execute(GameObject hitbox) {

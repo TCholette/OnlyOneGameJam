@@ -7,6 +7,8 @@ public abstract class AbsAttack {
 
     protected Player _player;
     protected int _bleed = 1;
+    protected Weapon _type;
+    public  Weapon Type { get { return _type; } }
     public AbsAttack(Player player) {
         _player = player;
     }

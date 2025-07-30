@@ -3,6 +3,7 @@ using System.Collections;
 public class Slash : AbsAttack
 {
     public Slash(Player player) : base(player) {
+        _type = Weapon.Sword;
     }
 
     protected override void Execute(GameObject hitbox) {

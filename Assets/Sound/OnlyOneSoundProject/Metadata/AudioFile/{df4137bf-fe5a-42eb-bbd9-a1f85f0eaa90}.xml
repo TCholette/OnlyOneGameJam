@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{df4137bf-fe5a-42eb-bbd9-a1f85f0eaa90}">
+		<property name="assetPath">
+			<value>Demons/Devil (Fly with squish between).wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.45541950113378687</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{821c9465-3e60-4771-8724-d7080c7c16fb}</destination>
+		</relationship>
+	</object>
+</objects>

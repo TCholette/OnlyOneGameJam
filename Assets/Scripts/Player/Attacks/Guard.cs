@@ -15,6 +15,7 @@ public class Guard : AbsAttack {
         _parryTime = parryTime;
         _parryCooldown = parryCooldown;
         _parrySpeed = parrySpeed;
+        _type = Weapon.Shield;
     }
 
     protected override void Execute(GameObject hitbox) {

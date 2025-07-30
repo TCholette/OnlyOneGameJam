@@ -117,6 +117,7 @@ public class Player : MonoBehaviour {
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
             attack.Activate(_weaponHitbox);
+            ProxyFmodPlayer.PlaySound<int>("ExecuteAbility", gameObject, new("AbilityTypes", (int)attack.Type));
         }
         if (Input.GetKey(KeyCode.Mouse1)) {
             _weaponWheel.SetActive(true);

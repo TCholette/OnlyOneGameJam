@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     private AbsEnemyAI _aI;
     public EnemyType type;
     private Weapon _weaponType;
+    private string MOVE_SOUND;
 
     [SerializeField] public GameObject hitbox;
     public Weapon Weapon {  get { return _weaponType; } }
@@ -25,20 +26,28 @@ public class Enemy : MonoBehaviour
         if (type == EnemyType.devil) {
             _aI = new BasicEnemyAI(this);
             _weaponType = Weapon.Spear;
+            MOVE_SOUND = "Walk";
         }
         if (type == EnemyType.imp) {
             _aI = new FlyingEnemyAI(this);
             _weaponType = Weapon.Spear;
+            MOVE_SOUND = "Fly";
         }
         if (type == EnemyType.beast) {
             _aI = new GuardingEnemyAI(this);
             _weaponType = Weapon.Shield;
+            MOVE_SOUND = "Walk";
         }
         _aI.Init();
     }
 
     private void Update() {
     }
+
+    public void PlayMoveSound() {
+        ProxyFmodPlayer.PlaySound<string>(MOVE_SOUND, gameObject);
+    }
+
     public Weapon Hit() {
         if (this) {
             if (_aI.Hit()) return _weaponType;
