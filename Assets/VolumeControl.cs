@@ -12,6 +12,7 @@ public class VolumeControl : MonoBehaviour
     }
     public void ToggleVolume() {
         if (_volOnContainer.activeSelf) {
+            ProxyFmodPlayer.PlaySound<string>("Select", gameObject, new("UI", "Hard"));
             _volOnContainer.SetActive(false);
             _volOffContainer.SetActive(true);
             ProxyFmodPlayer.DisableSound();
@@ -19,6 +20,7 @@ public class VolumeControl : MonoBehaviour
             _volOffContainer.SetActive(false);
             _volOnContainer.SetActive(true);
             ProxyFmodPlayer.EnableSound();
+            ProxyFmodPlayer.PlaySound<string>("Select", gameObject, new("UI", "Hard"));
         }
     }
 

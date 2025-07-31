@@ -18,12 +18,15 @@ public class WeaponSelect : MonoBehaviour, IPointerEnterHandler/*, IPointerExitH
                 break;
             case Weapon.Sword:
                 player.Attack = new Slash(player);
+                ProxyFmodPlayer.PlaySound<string>("Select", gameObject, new("UI", "Soft"));
                 break;
             case Weapon.Spear:
                 player.Attack = new Dash(player, 15f, 0.1f, 1f, 0.1f);
+                ProxyFmodPlayer.PlaySound<string>("Select", gameObject, new("UI", "Soft"));
                 break;
             case Weapon.Shield:
                 player.Attack = new Guard(player, 0.5f, 2f, 0.2f, 3f, 15f);
+                ProxyFmodPlayer.PlaySound<string>("Select", gameObject, new("UI", "Soft"));
                 break;
             default:
                 break;
