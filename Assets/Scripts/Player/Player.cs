@@ -47,6 +47,7 @@ public class Player : MonoBehaviour {
     public PlayerMovement Movement { get { return _movement; } }
     public AbsAttack Attack { set { attack = value; } }
 
+
     private AbsAttack attack;
 
     private int test = 0;
@@ -64,11 +65,8 @@ public class Player : MonoBehaviour {
         if (compareWeapon != Weapon.None) {
             if (_pantheon.IsPopulated) {
                 ProxyFmodPlayer.SetParam<string>(StaticManager.gameMusic, new("Music", "Game"));
+                StartCoroutine(ReturnFromPantheon());
                 _pantheon.IsPopulated = false;
-                _movement.CanMove = false;
-                gameObject.transform.position = SaveManager.Instance.save.lastPosition;
-                _movement.CanMove = true;
-                _movement.TempCheckpoint = null;
                 ChangeCharges(0);
                 StartCoroutine(enemy.Die());
             }
@@ -81,6 +79,20 @@ public class Player : MonoBehaviour {
             }
             StartCoroutine(enemy.Die());
         }
+    }
+
+    private IEnumerator ReturnFromPantheon() {
+        _movement.CanMove = false;
+        _weaponHitbox.SetActive(false);
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+        GetComponent<Animator>().SetTrigger("teleport");
+        yield return new WaitForSeconds(2f);
+        GetComponent<Collider2D>().enabled = true;
+        GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        gameObject.transform.position = SaveManager.Instance.save.lastPosition;
+        _movement.CanMove = true;
+        _movement.TempCheckpoint = null;
     }
 
    
@@ -233,8 +245,8 @@ public class Player : MonoBehaviour {
             if (_life <= 0) {
                 Die();
             }
+            UpdateLifeBar(-amount);
         }
-        UpdateLifeBar(-amount);
     }
     public void Heal(int life, int bleed) {
         if (!_isDead) {

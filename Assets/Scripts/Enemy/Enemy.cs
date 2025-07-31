@@ -56,7 +56,7 @@ public class Enemy : MonoBehaviour
     public IEnumerator Die() {
         if (!_isDead) {
             //FLESH
-            int amount = Random.Range(5, 100);
+            int amount = Random.Range(5, 10);
             for (int i = 0; i < amount; i++) {
                 int index = Random.Range(0, StaticManager.flesh.Length);
                 Sprite flesh = StaticManager.flesh[index];
