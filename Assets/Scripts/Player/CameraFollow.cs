@@ -4,6 +4,7 @@ public class CameraFollow : MonoBehaviour
 {
     public float minY;
 
+    [SerializeField] private GameObject flashLight;
     public Camera cam;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -19,5 +20,10 @@ public class CameraFollow : MonoBehaviour
         } else {
             cam.transform.position = new Vector3(transform.position.x, transform.position.y, cam.transform.position.z);
         }
+        if (Input.GetKeyDown(KeyCode.F)) {
+            flashLight.SetActive(!flashLight.activeInHierarchy);
+        }
+        Debug.Log(Camera.main.ScreenPointToRay(Input.mousePosition).GetPoint(0) - transform.position);
+        flashLight.transform.rotation = Quaternion.LookRotation(Camera.main.ScreenPointToRay(Input.mousePosition).GetPoint(0) - transform.position);
     }
 }
