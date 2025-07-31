@@ -78,6 +78,7 @@ public class Player : MonoBehaviour {
                 _weapons[(int)compareWeapon].SetActive(true);
             }
             StartCoroutine(enemy.Die());
+            ProxyFmodPlayer.PlaySound<int>("DemonDeath", gameObject, new ("EnemyType", (int)compareWeapon));
         }
     }
 
@@ -287,6 +288,7 @@ public class Player : MonoBehaviour {
         ChangeCharges(MAX_CHARGES);
         _life = MAX_LIFE;
         _movement.Respawn();
+        ProxyFmodPlayer.PlaySound<string>("PlayerRespawn", gameObject);
     }
     public void TestBleed(int amount) {
         for (int i = 0; i < amount; i++) {
