@@ -24,6 +24,7 @@ public class Player : MonoBehaviour {
     [SerializeField] private GameObject _PantheonObject;
     [SerializeField] private GameObject _weaponWheel;
     [SerializeField] private GameObject[] _weapons;
+
     private EventInstance healthSounds;
     private float heartIntensity = 0f;
     private Pantheon _pantheon;
@@ -51,10 +52,7 @@ public class Player : MonoBehaviour {
 
     private AbsAttack attack;
 
-    private int test = 0;
-
     public WeaponSelect LastWheel;
-
 
     public void HitEnemy(Enemy enemy) {
         Weapon compareWeapon = enemy.Hit();
@@ -109,17 +107,6 @@ public class Player : MonoBehaviour {
         } else {
             attack.Special(_weaponHitbox, source);
         }
-    }
-    public void SwitchTest() {
-        if (test == 0) {
-            attack = new Slash(this);
-        } else if (test == 1) {
-            attack = new Dash(this, 15f, 0.1f, 1f, 0.1f);
-        } else {
-            attack = new Guard(this, 0.5f, 2f, 0.2f, 3f, 15f);
-        }
-        test++;
-        test %= 3;
     }
     void Start() {
         healthSounds = (EventInstance)ProxyFmodPlayer.CreateSound<string>("Health", gameObject);
