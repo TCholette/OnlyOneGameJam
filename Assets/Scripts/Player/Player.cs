@@ -87,6 +87,7 @@ public class Player : MonoBehaviour {
 
     public void Hit(int damage, int bleeding, GameObject source) {
         if (!_isGuarding) {
+            ProxyFmodPlayer.PlaySound<string>("PlayerHit", gameObject);
             LoseLife(damage);
             AddBleeding(bleeding);
         } else {
