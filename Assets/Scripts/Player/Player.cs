@@ -66,7 +66,6 @@ public class Player : MonoBehaviour {
             if (_pantheon.IsPopulated) {
                 ProxyFmodPlayer.SetParam<string>(StaticManager.gameMusic, new("Music", "Game"));
                 StartCoroutine(ReturnFromPantheon());
-                _pantheon.IsPopulated = false;
                 ChangeCharges(0);
                 StartCoroutine(enemy.Die());
             }
@@ -89,6 +88,7 @@ public class Player : MonoBehaviour {
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         GetComponent<Animator>().SetTrigger("teleport");
         yield return new WaitForSeconds(2f);
+        _pantheon.IsPopulated = false;
         GetComponent<Collider2D>().enabled = true;
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         gameObject.transform.position = SaveManager.Instance.save.lastPosition;
