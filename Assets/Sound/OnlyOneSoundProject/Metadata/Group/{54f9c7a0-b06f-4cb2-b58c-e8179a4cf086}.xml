@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="MixerGroup" id="{54f9c7a0-b06f-4cb2-b58c-e8179a4cf086}">
+		<property name="name">
+			<value>Environment</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{25b73f13-d8ba-4228-a7a2-7e0b42402757}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{266b11d4-8dc1-4582-9712-78cfe1630d14}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{2afe2243-e552-4f5f-bc77-e0ee0b76a943}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{25b73f13-d8ba-4228-a7a2-7e0b42402757}">
+		<relationship name="effects">
+			<destination>{6028249e-ac88-4101-84e9-985ab3cd3689}</destination>
+			<destination>{29568637-962e-404c-ae36-9824008565ce}</destination>
+			<destination>{ebad62e2-92c6-4ab5-a3ea-91a7e69c2b96}</destination>
+			<destination>{ac633621-2b3e-43e3-bdbf-9f6127d335a6}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{266b11d4-8dc1-4582-9712-78cfe1630d14}" />
+	<object class="MixerBusFader" id="{6028249e-ac88-4101-84e9-985ab3cd3689}" />
+	<object class="GainEffect" id="{29568637-962e-404c-ae36-9824008565ce}">
+		<property name="gain">
+			<value>10</value>
+		</property>
+	</object>
+	<object class="CompressorEffect" id="{ebad62e2-92c6-4ab5-a3ea-91a7e69c2b96}">
+		<property name="threshold">
+			<value>-11.5</value>
+		</property>
+		<property name="ratio">
+			<value>2.4000001</value>
+		</property>
+		<property name="attackTime">
+			<value>6.80000019</value>
+		</property>
+		<property name="releaseTime">
+			<value>80</value>
+		</property>
+		<property name="gain">
+			<value>-1.5</value>
+		</property>
+	</object>
+	<object class="MixerSend" id="{ac633621-2b3e-43e3-bdbf-9f6127d335a6}">
+		<property name="level">
+			<value>-16.5</value>
+		</property>
+		<property name="inputFormat">
+			<value>1</value>
+		</property>
+		<relationship name="mixerReturn">
+			<destination>{7c57238e-26e4-4277-897b-b015c628791f}</destination>
+		</relationship>
+	</object>
+</objects>

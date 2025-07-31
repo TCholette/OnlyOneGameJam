@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class BasicEnemyAI : AbsEnemyAI
 
     private bool _canAttack = true;
     private Animator _animator;
+    private EventInstance moving; 
     public BasicEnemyAI(Enemy enemy) {
         _ctx = enemy;
         _animator = _ctx.GetComponent<Animator>();

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="EffectPreset" id="{fb15ecff-0ade-4bf8-a167-b1cd24930af4}">
+		<property name="name">
+			<value>Effect Chain</value>
+		</property>
+		<relationship name="folder">
+			<destination>{61d471ee-a6d7-4f65-bf0b-29e592e12194}</destination>
+		</relationship>
+		<relationship name="effect">
+			<destination>{eaee17f8-6db6-477f-a8b2-1e1c764d38b8}</destination>
+		</relationship>
+	</object>
+	<object class="EffectChain" id="{eaee17f8-6db6-477f-a8b2-1e1c764d38b8}">
+		<relationship name="effects">
+			<destination>{f9d271e0-376d-48d8-86bb-28758e4fa615}</destination>
+		</relationship>
+	</object>
+	<object class="DelayEffect" id="{f9d271e0-376d-48d8-86bb-28758e4fa615}">
+		<property name="delay">
+			<value>300</value>
+		</property>
+		<property name="feedback">
+			<value>22</value>
+		</property>
+		<property name="level">
+			<value>-14.5</value>
+		</property>
+	</object>
+</objects>

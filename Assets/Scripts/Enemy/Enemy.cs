@@ -43,8 +43,20 @@ public class Enemy : MonoBehaviour
     private void Update() {
     }
 
-    public void PlayMoveSound() {
+    public void PlayBossMoveSound() {
+        ProxyFmodPlayer.PlaySound<string>("BossMove", gameObject, new("MoveState", "Walk"));
+    }
+
+    public void PlayBasicMoveSound() {
+        ProxyFmodPlayer.PlaySound<string>("CrawlerMove", gameObject, new("MoveState", "Walk"));
+    }
+
+    public void PlayImpMoveSound() {
         ProxyFmodPlayer.PlaySound<string>(MOVE_SOUND, gameObject);
+    }
+
+    public void PlayAttackSound() {
+        ProxyFmodPlayer.PlaySound<int>("DemonAttack", gameObject, new("EnemyType", (int)type));
     }
 
     public Weapon Hit() {

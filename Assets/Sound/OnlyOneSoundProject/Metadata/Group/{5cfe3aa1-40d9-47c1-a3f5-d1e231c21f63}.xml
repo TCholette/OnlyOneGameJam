@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="MixerGroup" id="{5cfe3aa1-40d9-47c1-a3f5-d1e231c21f63}">
+		<property name="name">
+			<value>Demon</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{e65354c7-8770-4467-aec6-572862e38089}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{c620e7d4-d898-410c-acb9-071f558d573d}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{2afe2243-e552-4f5f-bc77-e0ee0b76a943}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{e65354c7-8770-4467-aec6-572862e38089}">
+		<relationship name="effects">
+			<destination>{112de924-0175-4025-8847-dec8cee83921}</destination>
+			<destination>{efdeec1a-00c5-4725-8a44-40a806b6f425}</destination>
+			<destination>{5d30ba56-89a2-4100-a01f-cbc0949ff1dd}</destination>
+			<destination>{c286f6f3-e26c-4cbe-8d55-5c6a6c6abb16}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{c620e7d4-d898-410c-acb9-071f558d573d}" />
+	<object class="MixerBusFader" id="{112de924-0175-4025-8847-dec8cee83921}" />
+	<object class="GainEffect" id="{efdeec1a-00c5-4725-8a44-40a806b6f425}">
+		<property name="gain">
+			<value>10</value>
+		</property>
+	</object>
+	<object class="CompressorEffect" id="{5d30ba56-89a2-4100-a01f-cbc0949ff1dd}">
+		<property name="threshold">
+			<value>-11.5</value>
+		</property>
+		<property name="ratio">
+			<value>3.4000001</value>
+		</property>
+		<property name="attackTime">
+			<value>6.80000019</value>
+		</property>
+		<property name="releaseTime">
+			<value>80</value>
+		</property>
+	</object>
+	<object class="MixerSend" id="{c286f6f3-e26c-4cbe-8d55-5c6a6c6abb16}">
+		<property name="level">
+			<value>-35</value>
+		</property>
+		<property name="inputFormat">
+			<value>1</value>
+		</property>
+		<relationship name="mixerReturn">
+			<destination>{7c57238e-26e4-4277-897b-b015c628791f}</destination>
+		</relationship>
+	</object>
+</objects>

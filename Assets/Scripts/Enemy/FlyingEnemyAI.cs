@@ -14,7 +14,7 @@ public class FlyingEnemyAI : AbsEnemyAI {
     }
     protected override void AttackTarget() {
         _ctx.Shoot(_player, _shootSpeed);
-        ProxyFmodPlayer.PlaySound<string>("DemonShoot", _ctx.gameObject);
+        ProxyFmodPlayer.PlaySound<int>("DemonAttack", _ctx.gameObject, new ("EnemyType", 1));
     }
     public override bool Hit() {
         return true;

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="MixerGroup" id="{b9c76729-5022-4cdf-91b1-151befb009a0}">
+		<property name="name">
+			<value>UI</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{ef951904-6f9e-4f6c-aa8f-9aa27c77e875}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{86d03493-899c-49d4-b048-ec1a77ba36ff}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{2afe2243-e552-4f5f-bc77-e0ee0b76a943}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{ef951904-6f9e-4f6c-aa8f-9aa27c77e875}">
+		<relationship name="effects">
+			<destination>{8b6f8d1e-69f6-418e-9536-f391845f30f7}</destination>
+			<destination>{ad007910-c308-4182-92f3-3fb2db226550}</destination>
+			<destination>{5fd1f6a5-15bc-4f8c-b9fc-cf8b3ac24282}</destination>
+			<destination>{80adffd8-f51f-4d65-bc02-7b60504ed89f}</destination>
+			<destination>{429fb4e0-2204-4a2c-b6b2-ee814eaec27e}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{86d03493-899c-49d4-b048-ec1a77ba36ff}" />
+	<object class="MixerBusFader" id="{8b6f8d1e-69f6-418e-9536-f391845f30f7}" />
+	<object class="GainEffect" id="{ad007910-c308-4182-92f3-3fb2db226550}">
+		<property name="gain">
+			<value>10</value>
+		</property>
+	</object>
+	<object class="MultibandEqEffect" id="{5fd1f6a5-15bc-4f8c-b9fc-cf8b3ac24282}">
+		<property name="filterTypeA">
+			<value>9</value>
+		</property>
+		<property name="frequencyA">
+			<value>7039.16846</value>
+		</property>
+		<property name="qualityA">
+			<value>0.239999995</value>
+		</property>
+		<property name="gainA">
+			<value>12.8362446</value>
+		</property>
+	</object>
+	<object class="CompressorEffect" id="{80adffd8-f51f-4d65-bc02-7b60504ed89f}">
+		<property name="threshold">
+			<value>-11.5</value>
+		</property>
+		<property name="ratio">
+			<value>3.4000001</value>
+		</property>
+		<property name="attackTime">
+			<value>6.80000019</value>
+		</property>
+		<property name="releaseTime">
+			<value>96</value>
+		</property>
+	</object>
+	<object class="MixerSend" id="{429fb4e0-2204-4a2c-b6b2-ee814eaec27e}">
+		<property name="level">
+			<value>-17.5</value>
+		</property>
+		<property name="inputFormat">
+			<value>1</value>
+		</property>
+		<relationship name="mixerReturn">
+			<destination>{7c57238e-26e4-4277-897b-b015c628791f}</destination>
+		</relationship>
+	</object>
+</objects>

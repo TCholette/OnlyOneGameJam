@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="MixerGroup" id="{26f3a06f-6676-46d7-b857-ab5f137411b3}">
+		<property name="name">
+			<value>Player</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{b9325827-faaf-4878-8d1f-3fac5c01fcf1}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{d94dee27-f2d5-4461-b069-6e7c7c8103d4}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{2afe2243-e552-4f5f-bc77-e0ee0b76a943}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{b9325827-faaf-4878-8d1f-3fac5c01fcf1}">
+		<relationship name="effects">
+			<destination>{20e5c99f-54f6-48e2-a66d-1ea91f8e3bc4}</destination>
+			<destination>{b7132387-e670-4bb1-afb3-023aa4d7a92a}</destination>
+			<destination>{1cba6c42-6999-45d0-8665-4a58a0cb1ed9}</destination>
+			<destination>{4bd47e8e-d659-46dd-a80d-e47633701073}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{d94dee27-f2d5-4461-b069-6e7c7c8103d4}" />
+	<object class="MixerBusFader" id="{20e5c99f-54f6-48e2-a66d-1ea91f8e3bc4}" />
+	<object class="GainEffect" id="{b7132387-e670-4bb1-afb3-023aa4d7a92a}">
+		<property name="gain">
+			<value>10</value>
+		</property>
+	</object>
+	<object class="CompressorEffect" id="{1cba6c42-6999-45d0-8665-4a58a0cb1ed9}">
+		<property name="threshold">
+			<value>-11.5</value>
+		</property>
+		<property name="ratio">
+			<value>3.4000001</value>
+		</property>
+		<property name="attackTime">
+			<value>6.80000019</value>
+		</property>
+		<property name="releaseTime">
+			<value>96</value>
+		</property>
+	</object>
+	<object class="MixerSend" id="{4bd47e8e-d659-46dd-a80d-e47633701073}">
+		<property name="level">
+			<value>-35</value>
+		</property>
+		<property name="inputFormat">
+			<value>1</value>
+		</property>
+		<relationship name="mixerReturn">
+			<destination>{7c57238e-26e4-4277-897b-b015c628791f}</destination>
+		</relationship>
+	</object>
+</objects>

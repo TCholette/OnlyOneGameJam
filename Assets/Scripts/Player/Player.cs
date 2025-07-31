@@ -54,6 +54,10 @@ public class Player : MonoBehaviour {
 
     public WeaponSelect LastWheel;
 
+    public void PlayAbilitySound(int type) {
+        ProxyFmodPlayer.PlaySound<int>("ExecuteAbility", gameObject, new("AbilityTypes", type));
+    }
+
     public void HitEnemy(Enemy enemy) {
         Weapon compareWeapon = enemy.Hit();
         if (!_pantheon.IsPopulated) {
@@ -87,6 +91,7 @@ public class Player : MonoBehaviour {
         GetComponent<Collider2D>().enabled = false;
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         GetComponent<Animator>().SetTrigger("teleport");
+        ProxyFmodPlayer.PlaySound<string>("TP", gameObject, new("TP", "Out"));
         yield return new WaitForSeconds(2f);
         isInvincible = false;
         _pantheon.IsPopulated = false;
@@ -128,7 +133,6 @@ public class Player : MonoBehaviour {
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
             attack.Activate(_weaponHitbox);
-            ProxyFmodPlayer.PlaySound<int>("ExecuteAbility", gameObject, new("AbilityTypes", (int)attack.Type));
         }
         if (Input.GetKey(KeyCode.Mouse1)) {
             _weaponWheel.SetActive(true);
@@ -270,7 +274,7 @@ public class Player : MonoBehaviour {
     }
 
     private IEnumerator Respawn() {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.7f);
         _isDead = false;
         rightBar.transform.position = _rightBarPos;
         leftBar.transform.position = _leftBarPos;

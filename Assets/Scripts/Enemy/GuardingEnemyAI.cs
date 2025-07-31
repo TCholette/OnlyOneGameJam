@@ -1,3 +1,4 @@
+using FMOD.Studio;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine;
 public class GuardingEnemyAI : AbsEnemyAI {
 
     private const float PARRY_COOLDOWN = 0.1f;
-
+    private EventInstance moving;
     private bool _canAttack = true;
     private bool _canParry = true;
     private Animator _animator;
@@ -15,7 +16,6 @@ public class GuardingEnemyAI : AbsEnemyAI {
         _followRange = 12f;
         _attackRange = 5f;
         _animator = _ctx.GetComponent<Animator>();
-
     }
     protected override void AttackTarget() {
         _animator.SetTrigger("attack");
@@ -30,6 +30,7 @@ public class GuardingEnemyAI : AbsEnemyAI {
     }
 
     protected void Parry() {
+        ProxyFmodPlayer.PlaySound<int>("DemonParry", _ctx.gameObject);
         _animator.SetTrigger("attack");
         float direction = ((_player.gameObject.transform.position - _ctx.transform.position).normalized * _speed).x;
         if (direction < 0) {
