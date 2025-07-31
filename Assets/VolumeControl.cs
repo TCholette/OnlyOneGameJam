@@ -7,17 +7,17 @@ public class VolumeControl : MonoBehaviour
 
     public void Awake() {
         ProxyFmodPlayer.EnableSound();
-        _volOffContainer.SetActive(true);
-        _volOnContainer.SetActive(false);
+        _volOffContainer.SetActive(false);
+        _volOnContainer.SetActive(true);
     }
     public void ToggleVolume() {
-        if (_volOffContainer.activeSelf) {
-            _volOffContainer.SetActive(false);
-            _volOnContainer.SetActive(true);
-            ProxyFmodPlayer.DisableSound();
-        } else if (_volOnContainer.activeSelf) {
+        if (_volOnContainer.activeSelf) {
             _volOnContainer.SetActive(false);
             _volOffContainer.SetActive(true);
+            ProxyFmodPlayer.DisableSound();
+        } else if (_volOffContainer.activeSelf) {
+            _volOffContainer.SetActive(false);
+            _volOnContainer.SetActive(true);
             ProxyFmodPlayer.EnableSound();
         }
     }

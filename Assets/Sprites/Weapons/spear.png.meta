@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 2ab44590cdb597041a0e4470e7c142cb
+guid: 135468bab5e0d71488f6eecbe06cf4c5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1273358426504498224
-    second: pixil-frame-0 (16)_0
+      213: 5018245360316724722
+    second: spear_0
+  - first:
+      213: 882288841079561039
+    second: spear_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +54,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1500
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pixil-frame-0 (16)_0
+      name: spear_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1664
-        height: 1664
+        x: 173
+        y: 168
+        width: 590
+        height: 9850
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +118,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 03c0d8b0eb0eba110800000000000000
-      internalID: 1273358426504498224
+      spriteID: 2f53e61419364a540800000000000000
+      internalID: 5018245360316724722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spear_1
+      rect:
+        serializedVersion: 2
+        x: 854
+        y: 2276
+        width: 6
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4b96d1c6058e3c00800000000000000
+      internalID: 882288841079561039
       vertices: []
       indices: 
       edges: []
@@ -134,8 +159,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      pixil-frame-0 (16)_0: 1273358426504498224
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

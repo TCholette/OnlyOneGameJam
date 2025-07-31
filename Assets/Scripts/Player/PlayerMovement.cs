@@ -76,10 +76,7 @@ public class PlayerMovement : MonoBehaviour
             if (_isGrounded) {
                 newFriction = FRICTION * GROUND_FRICTION_RATIO;
             }
-            if (Input.GetKey(KeyCode.Space) && _isGrounded) {
-                _isGrounded = false;
-                _body.linearVelocityY = JUMP_FORCE;
-            }
+
 
             if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.A)) {
                 _body.linearVelocityX = Mathf.Lerp(_body.linearVelocityX, 0, newFriction);
@@ -97,10 +94,21 @@ public class PlayerMovement : MonoBehaviour
                 // _body.linearVelocityX = Mathf.Lerp(_body.linearVelocityX, 0, newFriction);
             }
 
-            if (_body.linearVelocity == Vector2.zero) {
-                _anim.SetBool("walking", false);
+            if (!_isGrounded) {
+                _anim.SetBool("isJumping", true);
+                _anim.SetBool("isWalking", false);
             } else {
-                _anim.SetBool("walking", true);
+                _anim.SetBool("isJumping", false);
+                if (_body.linearVelocityX != 0) {
+                    _anim.SetBool("isWalking", true);
+                } else {
+                    _anim.SetBool("isWalking", false);
+                }
+            }
+            if (Input.GetKey(KeyCode.Space) && _isGrounded) {
+                _anim.SetBool("isJumping", false);
+                _isGrounded = false;
+                _body.linearVelocityY = JUMP_FORCE;
             }
         }
     }
