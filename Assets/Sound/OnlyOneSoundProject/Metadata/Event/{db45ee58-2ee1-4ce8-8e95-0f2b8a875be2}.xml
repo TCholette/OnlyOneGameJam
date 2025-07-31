@@ -5,7 +5,7 @@
 			<value>CrawlerMove</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{bf2f31ce-9cd9-41b6-841b-4e21bbccf75b}</destination>
@@ -177,6 +177,7 @@
 	<object class="MixerBusEffectChain" id="{5e5f3423-5026-462a-a05a-f8540f87df17}">
 		<relationship name="effects">
 			<destination>{0067c9ce-60af-4503-a157-65765ad3abe4}</destination>
+			<destination>{4e8ef384-2922-4108-86f9-20c04a94d8e0}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{acb1bc8c-b79f-4ee6-a57e-b34bc9882018}" />
@@ -295,5 +296,10 @@
 	</object>
 	<object class="MixerBusPanner" id="{8a5c3759-3117-494b-92d7-3f4ae98eb719}" />
 	<object class="MixerBusFader" id="{0067c9ce-60af-4503-a157-65765ad3abe4}" />
+	<object class="SpatialiserEffect" id="{4e8ef384-2922-4108-86f9-20c04a94d8e0}">
+		<property name="panBlend">
+			<value>0.799999952</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{f242cad7-ef43-4649-8114-437d8a4ce94c}" />
 </objects>

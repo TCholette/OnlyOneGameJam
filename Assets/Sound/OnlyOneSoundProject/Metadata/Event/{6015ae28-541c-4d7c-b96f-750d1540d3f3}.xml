@@ -5,7 +5,7 @@
 			<value>DemonDeath</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{bf2f31ce-9cd9-41b6-841b-4e21bbccf75b}</destination>
@@ -62,7 +62,14 @@
 			<destination>{5cfe3aa1-40d9-47c1-a3f5-d1e231c21f63}</destination>
 		</relationship>
 	</object>
-	<object class="EventAutomatableProperties" id="{c4b1b9c4-302e-45fc-8cb1-35936c626e2b}" />
+	<object class="EventAutomatableProperties" id="{c4b1b9c4-302e-45fc-8cb1-35936c626e2b}">
+		<property name="minimumDistance">
+			<value>1.20000005</value>
+		</property>
+		<property name="maximumDistance">
+			<value>2600</value>
+		</property>
+	</object>
 	<object class="MarkerTrack" id="{fb1629b5-8616-49d0-8570-3b91fd5e431c}" />
 	<object class="Timeline" id="{465e5d56-d0e2-4a65-9e8c-e10fc6dae643}">
 		<property name="isProxyEnabled">
@@ -104,6 +111,7 @@
 	<object class="MixerBusEffectChain" id="{763c6d13-ad7d-41be-ad7a-a4278373cb1f}">
 		<relationship name="effects">
 			<destination>{dca23a40-1b0f-43b4-be41-b5cc529c9f07}</destination>
+			<destination>{e76bb2ee-014a-41ce-9386-fe2a6d681150}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{64c5f361-aaef-4fc7-8e6c-e998eb6ca8ed}" />
@@ -123,6 +131,11 @@
 	</object>
 	<object class="MixerBusFader" id="{244c249a-00cd-4dd3-912c-d6e009420a5a}" />
 	<object class="MixerBusFader" id="{dca23a40-1b0f-43b4-be41-b5cc529c9f07}" />
+	<object class="SpatialiserEffect" id="{e76bb2ee-014a-41ce-9386-fe2a6d681150}">
+		<property name="panBlend">
+			<value>0.799999952</value>
+		</property>
+	</object>
 	<object class="Automator" id="{381944cf-f321-4a51-a019-cfac306d8d96}">
 		<property name="nameOfPropertyBeingAutomated">
 			<value>startOffset</value>

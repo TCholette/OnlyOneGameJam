@@ -5,7 +5,7 @@
 			<value>DemonAttack</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{bf2f31ce-9cd9-41b6-841b-4e21bbccf75b}</destination>
@@ -155,6 +155,7 @@
 	<object class="MixerBusEffectChain" id="{f073041c-6752-4dee-a7d7-1c7c9df231fc}">
 		<relationship name="effects">
 			<destination>{80577512-275e-4ce5-aedb-80efa43468e5}</destination>
+			<destination>{13c75f1f-2ef0-495e-a5ab-20bd5ea4a5a3}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{fa321790-0847-4759-8a7b-d85bd222138f}" />
@@ -179,6 +180,11 @@
 	</object>
 	<object class="MixerBusPanner" id="{b3dc7955-e20b-4bba-925d-5b2d25071247}" />
 	<object class="MixerBusFader" id="{80577512-275e-4ce5-aedb-80efa43468e5}" />
+	<object class="SpatialiserEffect" id="{13c75f1f-2ef0-495e-a5ab-20bd5ea4a5a3}">
+		<property name="panBlend">
+			<value>0.799999952</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{52b7a342-4126-4185-a88c-f0eb07ad2483}" />
 	<object class="DistortionEffect" id="{ac2250d4-3046-4482-a9c9-3a5b2a677f34}">
 		<property name="level">

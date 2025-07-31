@@ -5,7 +5,7 @@
 			<value>BossMove</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{bf2f31ce-9cd9-41b6-841b-4e21bbccf75b}</destination>
@@ -101,6 +101,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{1c335175-59f6-44d2-9868-dd1549cb34e6}">
+		<property name="volume">
+			<value>-2.5</value>
+		</property>
 		<relationship name="effectChain">
 			<destination>{afe9ed8d-e928-417d-9d45-1fd36f68eb35}</destination>
 		</relationship>
@@ -201,6 +204,8 @@
 	<object class="MixerBusEffectChain" id="{afe9ed8d-e928-417d-9d45-1fd36f68eb35}">
 		<relationship name="effects">
 			<destination>{4083e130-cf1e-4512-9826-bf63c92d278d}</destination>
+			<destination>{76f826f2-ddd1-4b82-8c0d-7ae38109b295}</destination>
+			<destination>{b9e5f558-6b25-4bed-a097-de534d985537}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{73141894-30e8-4621-b47e-70edefc33f0f}" />
@@ -301,6 +306,16 @@
 	</object>
 	<object class="MixerBusPanner" id="{ff035a50-7d88-4160-a387-08d7288c89e9}" />
 	<object class="MixerBusFader" id="{4083e130-cf1e-4512-9826-bf63c92d278d}" />
+	<object class="LimiterEffect" id="{76f826f2-ddd1-4b82-8c0d-7ae38109b295}">
+		<property name="ceiling">
+			<value>-1.20000005</value>
+		</property>
+	</object>
+	<object class="SpatialiserEffect" id="{b9e5f558-6b25-4bed-a097-de534d985537}">
+		<property name="panBlend">
+			<value>0.799999952</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{35aef867-ef48-4ecb-b5e9-6a3d88640ea0}" />
 	<object class="MixerBusFader" id="{d659cb44-1c14-4200-a49f-cbe438bf5c3e}" />
 	<object class="MultibandEqEffect" id="{c20a310d-785c-4f5b-b9dc-8ef39f20c7ff}">

@@ -5,7 +5,7 @@
 			<value>DemonParry</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{bf2f31ce-9cd9-41b6-841b-4e21bbccf75b}</destination>
@@ -96,6 +96,7 @@
 	<object class="MixerBusEffectChain" id="{f9976108-6362-4acc-a6ca-94669cdc466f}">
 		<relationship name="effects">
 			<destination>{9a4b5a1e-bb48-4bb9-abe4-9115bba7102b}</destination>
+			<destination>{7c80f085-8fc3-4f42-bcdf-8b48574d0470}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{92c62430-f294-4048-9698-038d0de3840d}" />
@@ -112,6 +113,11 @@
 	</object>
 	<object class="MixerBusFader" id="{358ed0e6-abb9-4a32-8180-b1d2c179676b}" />
 	<object class="MixerBusFader" id="{9a4b5a1e-bb48-4bb9-abe4-9115bba7102b}" />
+	<object class="SpatialiserEffect" id="{7c80f085-8fc3-4f42-bcdf-8b48574d0470}">
+		<property name="panBlend">
+			<value>0.799999952</value>
+		</property>
+	</object>
 	<object class="ADSRModulator" id="{7f8d2f34-3254-4359-9dd0-f255d839b089}">
 		<property name="nameOfPropertyBeingModulated">
 			<value>volume</value>

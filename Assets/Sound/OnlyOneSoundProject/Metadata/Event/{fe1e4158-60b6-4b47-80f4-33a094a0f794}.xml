@@ -5,7 +5,7 @@
 			<value>TP</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{bf2f31ce-9cd9-41b6-841b-4e21bbccf75b}</destination>
@@ -124,6 +124,7 @@
 			<destination>{d3755e4b-a7c9-469f-accd-13790440961d}</destination>
 			<destination>{56e21665-b118-493c-91ed-70cb7b0c4e6f}</destination>
 			<destination>{eca961cc-0b13-4adc-beda-d03f9d998b7f}</destination>
+			<destination>{4da494dd-5010-4f7e-b98e-70266fcd0559}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{bd3e63a5-1818-4d64-8f1a-a133419ae8b7}" />
@@ -224,6 +225,11 @@
 		</property>
 		<property name="gainA">
 			<value>9.71556187</value>
+		</property>
+	</object>
+	<object class="SpatialiserEffect" id="{4da494dd-5010-4f7e-b98e-70266fcd0559}">
+		<property name="panBlend">
+			<value>0.504999995</value>
 		</property>
 	</object>
 </objects>

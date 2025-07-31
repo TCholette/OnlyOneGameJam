@@ -5,7 +5,7 @@
 			<value>Fly</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{bf2f31ce-9cd9-41b6-841b-4e21bbccf75b}</destination>
@@ -104,6 +104,7 @@
 		<relationship name="effects">
 			<destination>{58806116-1f3d-4766-9e23-b167158f05b7}</destination>
 			<destination>{0ff35ae4-19f1-4709-909b-8f0a8bb7d5ed}</destination>
+			<destination>{cb48bf7b-ad93-4e64-a655-808d984ac5be}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{8f2f56a2-73bc-4f9f-ac9e-66999124d3f0}" />
@@ -140,6 +141,11 @@
 		</property>
 		<property name="gainB">
 			<value>8.67533684</value>
+		</property>
+	</object>
+	<object class="SpatialiserEffect" id="{cb48bf7b-ad93-4e64-a655-808d984ac5be}">
+		<property name="panBlend">
+			<value>0.799999952</value>
 		</property>
 	</object>
 	<object class="RandomizerModulator" id="{113dc259-1e97-4396-9618-c3e00a5f8df9}">
