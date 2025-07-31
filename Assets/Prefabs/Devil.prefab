@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8459681200566733767}
   - component: {fileID: 7828830306602350202}
   - component: {fileID: 1469449675311592265}
+  - component: {fileID: 6966656026317614156}
   m_Layer: 0
   m_Name: Devil
   m_TagString: Enemy
@@ -169,6 +170,28 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.84267634, y: 1.2599999}
   m_Direction: 0
+--- !u!95 &6966656026317614156
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7654256699518058906}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6c1d11d0aee402d4a8b0319c5293234e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8654320899532882398
 GameObject:
   m_ObjectHideFlags: 0

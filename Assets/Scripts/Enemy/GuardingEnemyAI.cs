@@ -8,14 +8,17 @@ public class GuardingEnemyAI : AbsEnemyAI {
 
     private bool _canAttack = true;
     private bool _canParry = true;
+    private Animator _animator;
     public GuardingEnemyAI(Enemy enemy) {
         _ctx = enemy;
         _speed = 2f;
         _followRange = 12f;
         _attackRange = 5f;
+        _animator = _ctx.GetComponent<Animator>();
 
     }
     protected override void AttackTarget() {
+        _animator.SetTrigger("attack");
         _ctx.StartCoroutine(ToggleHitbox());
         float direction = ((_player.gameObject.transform.position - _ctx.transform.position).normalized * _speed).x;
         if (direction < 0) {
@@ -27,6 +30,7 @@ public class GuardingEnemyAI : AbsEnemyAI {
     }
 
     protected void Parry() {
+        _animator.SetTrigger("attack");
         float direction = ((_player.gameObject.transform.position - _ctx.transform.position).normalized * _speed).x;
         if (direction < 0) {
             _ctx.GetComponent<SpriteRenderer>().flipX = true;
@@ -75,14 +79,14 @@ public class GuardingEnemyAI : AbsEnemyAI {
     private IEnumerator AttackCooldown() {
         _canAttack = false;
         _canParry = false;
-        _ctx.GetComponent<SpriteRenderer>().color = Color.black;
+        //_ctx.GetComponent<SpriteRenderer>().color = Color.black;
         yield return new WaitForSeconds(_attackCooldown);
         _canAttack = true;
         yield return ParryCooldown();
     }
     private IEnumerator ParryCooldown() {
         yield return new WaitForSeconds(PARRY_COOLDOWN);
-        _ctx.GetComponent<SpriteRenderer>().color = Color.white;
+        //_ctx.GetComponent<SpriteRenderer>().color = Color.white;
         _canParry = true;
     }
     protected override void FollowTarget() {

@@ -5,8 +5,7 @@ using UnityEngine;
 public enum EnemyType {
     devil = 0,
     imp = 1,
-    beast = 2,
-    brute = 3   
+    beast = 2, 
 }
 public class Enemy : MonoBehaviour
 {
