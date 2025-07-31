@@ -4,7 +4,6 @@ using UnityEngine.EventSystems;
 
 public class WeaponSelect : MonoBehaviour, IPointerEnterHandler/*, IPointerExitHandler, IPointerClickHandler*/ {
 
-    [SerializeField] private GameObject wheel;
     [SerializeField] private Weapon type;
     [SerializeField] private Player player;
     [SerializeField] private GameObject display;
@@ -13,7 +12,7 @@ public class WeaponSelect : MonoBehaviour, IPointerEnterHandler/*, IPointerExitH
             player.LastWheel.Deselect();
         }
         player.LastWheel = this;
-        GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+        GetComponent<Image>().color = new Color(GetComponent<Image>().color.r, GetComponent<Image>().color.g, GetComponent<Image>().color.b, 1f);
         switch (type) {
             case Weapon.None:
                 break;
@@ -29,7 +28,6 @@ public class WeaponSelect : MonoBehaviour, IPointerEnterHandler/*, IPointerExitH
             default:
                 break;
         }
-        wheel.transform.eulerAngles = new Vector3(0f, 0f, 120f * (int)type);
         display.SetActive(true);
     }
 
@@ -39,7 +37,7 @@ public class WeaponSelect : MonoBehaviour, IPointerEnterHandler/*, IPointerExitH
     }*/
 
     public void Deselect() {
-        GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.1f);
+        GetComponent<Image>().color = new Color(GetComponent<Image>().color.r, GetComponent<Image>().color.g, GetComponent<Image>().color.b, 0.1f);
         display.SetActive(false);
     }
 

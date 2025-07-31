@@ -39,6 +39,7 @@ public class Player : MonoBehaviour {
     private bool _isAttackCooldown;
     private bool _isGuarding;
     private PlayerMovement _movement;
+    private bool isInvincible = false;
     public bool IsAttackCooldown { get { return _isAttackCooldown; } set { _isAttackCooldown = value; } }
     public bool IsGuarding { /*get { return _isAttackCooldown; }*/ set { _isGuarding = value; } }
     public bool IsDead { get { return _isDead; } }
@@ -71,6 +72,7 @@ public class Player : MonoBehaviour {
             }
             else if (!SaveManager.Instance.save.weapons.Contains(compareWeapon)) {
                 SaveManager.Instance.save.lastPosition = gameObject.transform.position;
+                isInvincible = true;
                 StartCoroutine(_pantheon.SendToPantheon(enemy.type));
                 SaveManager.Instance.save.weapons.Add(compareWeapon);
                 Debug.Log("weapon: " + (int)compareWeapon);
@@ -88,6 +90,7 @@ public class Player : MonoBehaviour {
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         GetComponent<Animator>().SetTrigger("teleport");
         yield return new WaitForSeconds(2f);
+        isInvincible = false;
         _pantheon.IsPopulated = false;
         GetComponent<Collider2D>().enabled = true;
         GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
@@ -159,7 +162,7 @@ public class Player : MonoBehaviour {
     }
 
     public void AddBleeding(int amount) {
-        if (!_isDead && !_pantheon.IsPopulated) {
+        if (!_isDead && !isInvincible) {
             _bleeding += amount;
             if (!_isBleeding) {
                 _isBleeding = true;
@@ -237,7 +240,7 @@ public class Player : MonoBehaviour {
     }
 
     public void LoseLife(int amount) {
-        if (!_isDead && !_pantheon.IsPopulated) {
+        if (!_isDead && !isInvincible) {
             if (_life > amount) {
                 _life -= amount;
             } else {

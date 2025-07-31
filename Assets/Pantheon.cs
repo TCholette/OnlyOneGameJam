@@ -17,10 +17,10 @@ public class Pantheon : MonoBehaviour {
         _ctx.Movement.CanMove = false;
         _pantheonSpawner.GetComponent<EnemySpawnPoint>().Init(enemyType);
         yield return new WaitForSeconds(PANTHEON_BUFFER_S);
+        _isInPantheon = true;
         _ctx.GetComponent<Collider2D>().enabled = true;
         _ctx.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         _ctx.ChangeCharges(1);
-        _isInPantheon = true;
         ProxyFmodPlayer.SetParam<string>(StaticManager.gameMusic, new("Music", "Pantheon"));
         _ctx.gameObject.transform.position = _pantheonPoint.transform.position - new Vector3(2, 0);
         _ctx.Movement.CanMove = true;
