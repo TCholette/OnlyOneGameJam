@@ -23,7 +23,9 @@ public class CameraFollow : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F)) {
             flashLight.SetActive(!flashLight.activeInHierarchy);
         }
-        Debug.Log(Camera.main.ScreenPointToRay(Input.mousePosition).GetPoint(0) - transform.position);
-        flashLight.transform.rotation = Quaternion.LookRotation(Camera.main.ScreenPointToRay(Input.mousePosition).GetPoint(0) - transform.position);
+        Vector3 mousePos = Camera.main.ScreenPointToRay(Input.mousePosition).GetPoint(0) - transform.position;
+        mousePos = new Vector3(mousePos.x, mousePos.y, 0);
+        float mouseAngle = Mathf.Atan2(mousePos.y, mousePos.x) * 180 / Mathf.PI - 90;
+        flashLight.transform.eulerAngles = new Vector3(0f,0f,mouseAngle);
     }
 }
