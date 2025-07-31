@@ -15,9 +15,9 @@ public class EnemyHitbox : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.gameObject.CompareTag("Player")) {
             collision.GetComponent<Player>().Hit(damage, bleeding, gameObject);
-        }
-        if (despawns) {
-            Destroy(gameObject);
+            if (despawns) {
+                Destroy(gameObject);
+            }
         }
     }
     private void OnTriggerStay2D(Collider2D collision) {

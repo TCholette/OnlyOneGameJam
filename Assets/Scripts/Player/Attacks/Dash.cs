@@ -19,7 +19,8 @@ public class Dash : AbsAttack {
     }
 
     protected override void Execute(GameObject hitbox) {
-        _player.WeaponHitbox.SetActive(true);
+        _player.GetComponent<Animator>().SetTrigger("dashAttack");
+        _player.StartCoroutine(Hitbox());
         Vector2 direction = (Camera.main.ScreenPointToRay(Input.mousePosition).GetPoint(0) - _player.transform.position);
         direction = direction.normalized;
         hitbox.transform.position = new Vector3(_player.transform.position.x + direction.x, _player.transform.position.y + direction.y, 0);
@@ -28,7 +29,13 @@ public class Dash : AbsAttack {
         _player.StartCoroutine(Cooldown());
     }
 
-    private IEnumerator Dashing(Vector3 direction) {
+    private IEnumerator Hitbox() {
+        yield return new WaitForSeconds(0.2f);
+        _player.WeaponHitbox.SetActive(true);
+    }
+
+
+        private IEnumerator Dashing(Vector3 direction) {
         float baseGravScale = _player.GetComponent<Rigidbody2D>().gravityScale;
         _player.Movement.CanMove = false;
         _player.GetComponent<Rigidbody2D>().linearVelocity = direction * _speed;

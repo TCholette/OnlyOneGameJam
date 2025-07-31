@@ -79,14 +79,12 @@ public class GuardingEnemyAI : AbsEnemyAI {
     private IEnumerator AttackCooldown() {
         _canAttack = false;
         _canParry = false;
-        //_ctx.GetComponent<SpriteRenderer>().color = Color.black;
         yield return new WaitForSeconds(_attackCooldown);
         _canAttack = true;
         yield return ParryCooldown();
     }
     private IEnumerator ParryCooldown() {
         yield return new WaitForSeconds(PARRY_COOLDOWN);
-        //_ctx.GetComponent<SpriteRenderer>().color = Color.white;
         _canParry = true;
     }
     protected override void FollowTarget() {
