@@ -15,7 +15,7 @@ public class Pantheon : MonoBehaviour {
         _ctx.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
         _ctx.GetComponent<Animator>().SetTrigger("teleport");
         _ctx.Movement.CanMove = false;
-        _pantheonSpawner.GetComponent<EnemySpawnPoint>().Init(enemyType);
+        _pantheonSpawner.GetComponent<EnemySpawnPoint>().Init(enemyType, true);
         yield return new WaitForSeconds(PANTHEON_BUFFER_S);
         _isInPantheon = true;
         _ctx.GetComponent<Collider2D>().enabled = true;

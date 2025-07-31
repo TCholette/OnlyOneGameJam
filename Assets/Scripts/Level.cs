@@ -24,15 +24,17 @@ public class Level : MonoBehaviour
     }
     private void Init() {
         Debug.Log("init");
-        exit.SetActive(true);
+        if (exit) {
+            exit.SetActive(true);
+        }
         entry.SetActive(true);
         foreach (EnemySpawnPoint spawn in mandatorySpawns) {
-            spawn.Init();
+            spawn.Init(true);
             enemies.Add(spawn.enemy);
             goalEnemies.Add(spawn.enemy);
         }
         foreach (EnemySpawnPoint spawn in otherSpawns) {
-            spawn.Init();
+            spawn.Init(false);
             enemies.Add(spawn.enemy);
         }
         StartCoroutine(CheckWin());
@@ -68,7 +70,9 @@ public class Level : MonoBehaviour
             }
             if (_finished) {
                 Debug.Log("win");
-                exit.SetActive(false);
+                if (exit) {
+                    exit.SetActive(false);
+                }
             }
             if (player.IsDead) {
                 Restart();
