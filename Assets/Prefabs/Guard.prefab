@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 19.8, y: -0.56, z: 0.17582184}
-  m_LocalScale: {x: 2.1721663, y: 2.1721663, z: 2.1721663}
+  m_LocalScale: {x: 0.2172166, y: 0.2172166, z: 2.1721663}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3049487086295693079}
@@ -167,8 +167,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -0.18234715}
-  m_Size: {x: 0.84267634, y: 1.624694}
+  m_Offset: {x: 0, y: -1.3276112}
+  m_Size: {x: 8.426763, y: 16.767506}
   m_Direction: 0
 --- !u!95 &1454606282604622136
 Animator:
@@ -331,5 +331,5 @@ CapsuleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 9.041054, y: 1.0052875}
+  m_Size: {x: 90.41054, y: 10.05288}
   m_Direction: 0
