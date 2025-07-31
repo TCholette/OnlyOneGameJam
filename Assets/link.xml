@@ -1,0 +1,4 @@
+<linker>
+  <assembly fullname="FMODUnity" preserve="all"/>
+  <assembly fullname="FMODUnityResonance" preserve="all"/>
+</linker>

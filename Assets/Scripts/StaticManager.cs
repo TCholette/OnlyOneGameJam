@@ -1,7 +1,7 @@
 using FMOD.Studio;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
+// using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class StaticManager : MonoBehaviour
 {
@@ -34,9 +34,11 @@ public class StaticManager : MonoBehaviour
         projectile = projectileObj;
         enemyTemplate = enemyTemplateObj;
         int i = 0;
-        foreach (var template in enemyTemplateObjs) {
-            if (!enemyTemplates.ContainsValue(template)) {  
-            enemyTemplates.Add((EnemyType)i, template);
+        foreach (var template in enemyTemplateObjs)
+        {
+            if (!enemyTemplates.ContainsValue(template))
+            {
+                enemyTemplates.Add((EnemyType)i, template);
             }
             Debug.Log((EnemyType)i);
             i++;

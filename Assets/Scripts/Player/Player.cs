@@ -3,12 +3,13 @@ using System.Collections;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
+//using static UnityEditor.Experimental.GraphView.GraphView;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour
+{
     private const float BLEED_TICK_TIME = 0.05f;
     private const float MAX_LIFE = 1000;
-    private const float HEALTHY_LIFE_THRESHOLD = MAX_LIFE - (2 * (MAX_LIFE/10));
+    private const float HEALTHY_LIFE_THRESHOLD = MAX_LIFE - (2 * (MAX_LIFE / 10));
     private const float MID_LIFE_THREHSOLD = MAX_LIFE / 2;
     private const float DYING_LIFE_THRESHOLD = (2 * (MAX_LIFE / 10));
     private const int MAX_CHARGES = 1;
@@ -54,25 +55,32 @@ public class Player : MonoBehaviour {
 
     public WeaponSelect LastWheel;
 
-    public void PlayAbilitySound(int type) {
+    public void PlayAbilitySound(int type)
+    {
         ProxyFmodPlayer.PlaySound<int>("ExecuteAbility", gameObject, new("AbilityTypes", type));
     }
 
-    public void HitEnemy(Enemy enemy) {
+    public void HitEnemy(Enemy enemy)
+    {
         Weapon compareWeapon = enemy.Hit();
-        if (!_pantheon.IsPopulated) {
-            if (_charges != 0) {
+        if (!_pantheon.IsPopulated)
+        {
+            if (_charges != 0)
+            {
                 ChangeCharges(_charges - 1);
             }
         }
-        if (compareWeapon != Weapon.None) {
-            if (_pantheon.IsPopulated) {
+        if (compareWeapon != Weapon.None)
+        {
+            if (_pantheon.IsPopulated)
+            {
                 ProxyFmodPlayer.SetParam<string>(StaticManager.gameMusic, new("Music", "Game"));
                 StartCoroutine(ReturnFromPantheon());
                 ChangeCharges(0);
                 StartCoroutine(enemy.Die());
             }
-            else if (!SaveManager.Instance.save.weapons.Contains(compareWeapon)) {
+            else if (!SaveManager.Instance.save.weapons.Contains(compareWeapon))
+            {
                 SaveManager.Instance.save.lastPosition = gameObject.transform.position;
                 isInvincible = true;
                 StartCoroutine(_pantheon.SendToPantheon(enemy.type));
@@ -81,11 +89,12 @@ public class Player : MonoBehaviour {
                 _weapons[(int)compareWeapon].SetActive(true);
             }
             StartCoroutine(enemy.Die());
-            ProxyFmodPlayer.PlaySound<int>("DemonDeath", gameObject, new ("EnemyType", (int)compareWeapon));
+            ProxyFmodPlayer.PlaySound<int>("DemonDeath", gameObject, new("EnemyType", (int)compareWeapon));
         }
     }
 
-    private IEnumerator ReturnFromPantheon() {
+    private IEnumerator ReturnFromPantheon()
+    {
         _movement.CanMove = false;
         _weaponHitbox.SetActive(false);
         GetComponent<Collider2D>().enabled = false;
@@ -102,20 +111,26 @@ public class Player : MonoBehaviour {
         _movement.TempCheckpoint = null;
     }
 
-   
 
-    public void Hit(int damage, int bleeding, GameObject source) {
-        if (!_isGuarding) {
+
+    public void Hit(int damage, int bleeding, GameObject source)
+    {
+        if (!_isGuarding)
+        {
             ProxyFmodPlayer.PlaySound<string>("PlayerHit", gameObject);
             LoseLife(damage);
             AddBleeding(bleeding);
-        } else {
+        }
+        else
+        {
             attack.Special(_weaponHitbox, source);
         }
     }
-    void Start() {
+    void Start()
+    {
         healthSounds = (EventInstance)ProxyFmodPlayer.CreateSound<string>("Health", gameObject);
-        foreach(GameObject weap in _weapons) {
+        foreach (GameObject weap in _weapons)
+        {
             weap.SetActive(false);
         }
         _weapons[0].SetActive(true);
@@ -130,39 +145,51 @@ public class Player : MonoBehaviour {
         _rightBarPos = rightBar.transform.position;
     }
 
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.Mouse0)) {
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
             attack.Activate(_weaponHitbox);
         }
-        if (Input.GetKey(KeyCode.Mouse1)) {
+        if (Input.GetKey(KeyCode.Mouse1))
+        {
             _weaponWheel.SetActive(true);
-        } else {
+        }
+        else
+        {
             _weaponWheel.SetActive(false);
         }
     }
 
-    public void ChangeCharges(int amount) {
+    public void ChangeCharges(int amount)
+    {
         _charges = amount;
         // replace code for better things
-        if (_charges > 0) {
+        if (_charges > 0)
+        {
             chargeContainer.SetActive(true);
-            }
-        else {
+        }
+        else
+        {
             chargeContainer.SetActive(false);
         }
     }
 
-    public void AddBleeding(int amount) {
-        if (!_isDead && !isInvincible) {
+    public void AddBleeding(int amount)
+    {
+        if (!_isDead && !isInvincible)
+        {
             _bleeding += amount;
-            if (!_isBleeding) {
+            if (!_isBleeding)
+            {
                 _isBleeding = true;
                 StartCoroutine(Bleed());
             }
         }
     }
 
-    public void FullyHealAndRecharge() {
+    public void FullyHealAndRecharge()
+    {
 
         //yield return new WaitForSeconds(2f);
         //_bleeding = 0;
@@ -174,11 +201,14 @@ public class Player : MonoBehaviour {
         //lifeBar.transform.localScale = new Vector3(_lifeBarBaseScale, lifeBar.transform.localScale.y);
     }
 
-    private IEnumerator Bleed() {
+    private IEnumerator Bleed()
+    {
         int i = 0;
-        while (_isBleeding) {
+        while (_isBleeding)
+        {
             LoseLife(_bleeding);
-            if (i > 10) {
+            if (i > 10)
+            {
                 i = 0;
                 StartCoroutine(CreateDroplets());
             }
@@ -187,79 +217,103 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private IEnumerator CreateDroplets() {
+    private IEnumerator CreateDroplets()
+    {
         int bleed = _bleeding;
         GameObject droplet = Instantiate(dropletTemplate, tearContainer);
-        float rand = Random.Range(lifeBar.transform.position.x - lifeBar.transform.localScale.x * 100f / 2f, lifeBar.transform.position.x + lifeBar.transform.localScale.x*100f/2f);;
-        droplet.transform.position = new Vector2(rand ,lifeBar.transform.position.y);
-        yield return new WaitForSeconds(BLEED_TICK_TIME / (bleed*1f));
+        float rand = Random.Range(lifeBar.transform.position.x - lifeBar.transform.localScale.x * 100f / 2f, lifeBar.transform.position.x + lifeBar.transform.localScale.x * 100f / 2f); ;
+        droplet.transform.position = new Vector2(rand, lifeBar.transform.position.y);
+        yield return new WaitForSeconds(BLEED_TICK_TIME / (bleed * 1f));
 
     }
 
-    private void UpdateLifeSounds() {
+    private void UpdateLifeSounds()
+    {
         Debug.Log(_life);
-        if (_life >= HEALTHY_LIFE_THRESHOLD) {
+        if (_life >= HEALTHY_LIFE_THRESHOLD)
+        {
             healthSounds.stop(STOP_MODE.ALLOWFADEOUT);
             heartIntensity = 0f;
             Debug.Log("Stopping");
         }
-        if (_life <= HEALTHY_LIFE_THRESHOLD) {
+        if (_life <= HEALTHY_LIFE_THRESHOLD)
+        {
             PLAYBACK_STATE isPaused;
             healthSounds.getPlaybackState(out isPaused);
-            if (isPaused == PLAYBACK_STATE.STOPPED) {
+            if (isPaused == PLAYBACK_STATE.STOPPED)
+            {
                 healthSounds.start();
             }
-            if (_life > MID_LIFE_THREHSOLD) {
+            if (_life > MID_LIFE_THREHSOLD)
+            {
                 ProxyFmodPlayer.SetParam<string>(healthSounds, new("Health", "Low"));
                 heartIntensity = 0f;
                 Debug.Log("Starting");
             }
-            else if (_life <= MID_LIFE_THREHSOLD && _life > DYING_LIFE_THRESHOLD) {
+            else if (_life <= MID_LIFE_THREHSOLD && _life > DYING_LIFE_THRESHOLD)
+            {
                 ProxyFmodPlayer.SetParam<string>(healthSounds, new("Health", "Mid"));
                 ProxyFmodPlayer.SetParam<float>(healthSounds, new("HealthIntensity", heartIntensity));
-                heartIntensity += 1f/DYING_LIFE_THRESHOLD;
+                heartIntensity += 1f / DYING_LIFE_THRESHOLD;
                 Debug.Log("Mid");
             }
         }
     }
 
-    private void UpdateLifeBar(float amount) {
+    private void UpdateLifeBar(float amount)
+    {
         UpdateLifeSounds();
-        leftBar.transform.position -= new Vector3(amount * _lifeBarBaseScale*100/(2*MAX_LIFE),0f,0f);
-        rightBar.transform.position += new Vector3(amount * _lifeBarBaseScale*100/(2 * MAX_LIFE), 0f, 0f);
+        leftBar.transform.position -= new Vector3(amount * _lifeBarBaseScale * 100 / (2 * MAX_LIFE), 0f, 0f);
+        rightBar.transform.position += new Vector3(amount * _lifeBarBaseScale * 100 / (2 * MAX_LIFE), 0f, 0f);
         lifeBar.transform.localScale = new Vector3(_life / MAX_LIFE * _lifeBarBaseScale, lifeBar.transform.localScale.y);
     }
 
-    public void LoseLife(int amount) {
-        if (!_isDead && !isInvincible) {
-            if (_life > amount) {
+    public void LoseLife(int amount)
+    {
+        if (!_isDead && !isInvincible)
+        {
+            if (_life > amount)
+            {
                 _life -= amount;
-            } else {
+            }
+            else
+            {
                 _life = 0;
             }
-            if (_life <= 0) {
+            if (_life <= 0)
+            {
                 Die();
             }
             UpdateLifeBar(-amount);
         }
     }
-    public void Heal(int life, int bleed) {
-        if (!_isDead) {
-            if (_life + life <= MAX_LIFE) {
+    public void Heal(int life, int bleed)
+    {
+        if (!_isDead)
+        {
+            if (_life + life <= MAX_LIFE)
+            {
                 _life += life;
-            } else {
+            }
+            else
+            {
                 _life = MAX_LIFE;
             }
-            if (_bleeding > bleed) {
+            if (_bleeding > bleed)
+            {
                 _bleeding -= bleed;
-            } else {
+            }
+            else
+            {
                 _bleeding = 0;
             }
         }
         UpdateLifeBar(life);
     }
-    public void Die() {
-        if (!_isDead) {
+    public void Die()
+    {
+        if (!_isDead)
+        {
             _isDead = true;
             _isBleeding = false;
             _bleeding = 0;
@@ -273,7 +327,8 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private IEnumerator Respawn() {
+    private IEnumerator Respawn()
+    {
         yield return new WaitForSeconds(0.7f);
         _isDead = false;
         rightBar.transform.position = _rightBarPos;
@@ -284,8 +339,10 @@ public class Player : MonoBehaviour {
         _movement.Respawn();
         ProxyFmodPlayer.PlaySound<string>("PlayerRespawn", gameObject);
     }
-    public void TestBleed(int amount) {
-        for (int i = 0; i < amount; i++) {
+    public void TestBleed(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
             AddBleeding(1);
         }
     }
