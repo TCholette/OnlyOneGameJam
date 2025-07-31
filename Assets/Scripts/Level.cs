@@ -15,7 +15,7 @@ public class Level : MonoBehaviour
     private bool _started = false;
     private Player player;
 
-    private void OnTriggerEnter2D(Collider2D collision) {
+    private void OnTriggerStay2D(Collider2D collision) {
         if (collision.gameObject.CompareTag("Player") && !_started) {
             _started = true;
             player = collision.GetComponent<Player>();
