@@ -7,6 +7,7 @@ public class WeaponSelect : MonoBehaviour, IPointerEnterHandler/*, IPointerExitH
     [SerializeField] private GameObject wheel;
     [SerializeField] private Weapon type;
     [SerializeField] private Player player;
+    [SerializeField] private CurrentWeaponDisplay display;
     public void OnPointerEnter(PointerEventData eventData) {
         if (player.LastWheel) {
             player.LastWheel.Deselect();
@@ -18,12 +19,15 @@ public class WeaponSelect : MonoBehaviour, IPointerEnterHandler/*, IPointerExitH
                 break;
             case Weapon.Sword:
                 player.Attack = new Slash(player);
+                display.SelectWeapon(Weapon.Sword);
                 break;
             case Weapon.Spear:
                 player.Attack = new Dash(player, 15f, 0.1f, 1f, 0.1f);
+                display.SelectWeapon(Weapon.Spear);
                 break;
             case Weapon.Shield:
                 player.Attack = new Guard(player, 0.5f, 2f, 0.2f, 3f, 15f);
+                display.SelectWeapon(Weapon.Shield);
                 break;
             default:
                 break;

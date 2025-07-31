@@ -280,7 +280,7 @@ public class Player : MonoBehaviour {
     }
 
     private IEnumerator Respawn() {
-        yield return new WaitForSeconds(0f);
+        yield return new WaitForSeconds(0.5f);
         _isDead = false;
         rightBar.transform.position = _rightBarPos;
         leftBar.transform.position = _leftBarPos;
